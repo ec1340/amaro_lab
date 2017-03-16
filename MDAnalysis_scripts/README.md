@@ -4,6 +4,15 @@ This script will determine the distance traveled by a ligand (either specified b
 
 The current output is a plot showing distance between the COM of the ligand and COM of the receptor over the course of the trajectory
 
+
+REQUIREMENTS:
+
+Python2.7
+MDAnalysis
+ArgParse
+ConfigParser
+matplotlib
+
 ### COMMAND LINE INPUT
 
 
