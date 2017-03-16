@@ -201,7 +201,7 @@ for i in range(5):
 
 
 #----------------------------------------------------
-#--4-Calculate RMSD between COM of ligand and receptor
+#--4-Calculate distance between COM of ligand and receptor
 #----------------------------------------------------
 
 
