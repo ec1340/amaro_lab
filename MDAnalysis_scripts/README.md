@@ -32,6 +32,21 @@ OPTIONAL ARGUMENTS
 
 ### CONFIG FILE
 
+Example config file:
+
+		[INPUT FILES]
+		trajectory = MD_OA_2_1_run_1.dcd
+		topology = OA-2-1.prmtop
+
+		[RECEPTOR]
+		resname = resname OCT
+		indices = None
+
+		[LIGAND]
+		resname = resname MOL
+		indices = None
+
+
 
 - trajectory file		
 
