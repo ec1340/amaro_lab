@@ -1,6 +1,6 @@
 ## MDA_COM_CODE GUIDE:
 
-This script will determine the distance traveled by a ligand (either specified by atom selection syntax or a list of atom indices) from a receptor (either specified by atom selection syntax or a list of atom indices)
+This script will determine the distance traveled by a ligand (either specified by atom selection syntax or a list of atom indices) from a receptor (either specified by atom selection syntax or a list of atom indices) by utlizing the (MDAnalysis)[http://www.mdanalysis.org] package
 
 The current output is a plot showing distance between the COM of the ligand and COM of the receptor over the course of the trajectory
 
