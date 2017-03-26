@@ -18,7 +18,7 @@ The current output is a plot showing distance between the COM of the ligand and 
 
 To run script, use the following:
 
-python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.dat>
+		python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.dat>
 
 OPTIONAL ARGUMENTS
 
