@@ -24,11 +24,11 @@ OPTIONAL ARGUMENTS
 
 **-R**: will set script to take the text file of indices (specified in the config file) and use them to calculate the COM of the receptor
 
-	python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.dat> -R
+		python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.dat> -R
 	
 **-L**: will set script to take the text file of indices (specified in the config file) and use them to calculate the COM of the ligand
 
-	python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.dat> -L
+		python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.dat> -L
 
 ### CONFIG FILE
 
