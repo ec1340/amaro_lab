@@ -1,4 +1,4 @@
-## MDA_COM_CODE GUIDE:
+## MDA_ligand_distance.py GUIDE:
 
 This script will determine the distance traveled by a ligand (either specified by atom selection syntax or a list of atom indices) from a receptor (either specified by atom selection syntax or a list of atom indices) by utlizing the [MDAnalysis](http://www.mdanalysis.org) package
 
