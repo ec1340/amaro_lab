@@ -15,7 +15,8 @@ The current output is a plot showing distance between the COM of the ligand and 
 - pandas
 
 
-(if these requirements conflict with your systems current package versions, you can create a [conda virtual](environment[https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/20/conda/)
+(if these requirements conflict with your systems current package versions, I recommend creating a [conda virtual environment](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/20/conda/) in which to install the required packages)
+
 ### COMMAND LINE INPUT
 
 
