@@ -2,7 +2,7 @@
 
 This script will determine the distance traveled by a ligand (either specified by atom selection syntax or a list of atom indices) from a receptor (either specified by atom selection syntax or a list of atom indices) by utlizing the [MDAnalysis](http://www.mdanalysis.org) package
 
-The current output is a plot showing distance between the COM of the ligand and COM of the receptor over the course of the trajectory
+The current output is a plot showing distance between the COM of the ligand and COM of the receptor over the course of the trajectory and a csv containing distance per frame values. 
 
 
 ### REQUIREMENTS:
@@ -12,23 +12,24 @@ The current output is a plot showing distance between the COM of the ligand and 
 - ArgParse
 - ConfigParser
 - matplotlib
+- pandas
 
 ### COMMAND LINE INPUT
 
 
 To run script, use the following:
 
-		python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.dat>
+		python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.csv>
 
 OPTIONAL ARGUMENTS
 
 **-R**: will set script to take the text file of indices (specified in the config file) and use them to calculate the COM of the receptor
 
-		python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.dat> -R
+		python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.csv> -R
 	
 **-L**: will set script to take the text file of indices (specified in the config file) and use them to calculate the COM of the ligand
 
-		python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.dat> -L
+		python MD_ligand_distance.py <*your_config_file*.conf> <*output_file_name*.csv> -L
 
 ### CONFIG FILE
 
@@ -70,8 +71,4 @@ Example config file:
   - list of index numbers for atoms selected to calculate COM stored in a txt file using a ',' delimiter
 
 
-## NOTE
-
-- the output file feature does not work yet - rather it will output a graph of distance traveled 
-AN OUTPUT FILE NAME STILL NEEDS TO BE SPECIFIED HOWEVER
 
