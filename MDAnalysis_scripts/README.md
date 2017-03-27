@@ -60,11 +60,13 @@ Example config file:
 
    - atom_selection is made using selection syntax used by MDAnalysis 
    - Some selection terms:
-				- protein, backbone, nucleic, nucleicbackbone
-				- segid 'seg-name' (ex. segid DMPC)
-				- resid 'residue-number:range' (ex. resid 1:5)						
-        - resname 'residue-name' (resname LYS]
-- indices 
+   
+			- protein, backbone, nucleic, nucleicbackbone
+			- segid 'seg-name' (ex. segid DMPC)
+			- resid 'residue-number:range' (ex. resid 1:5)						
+        		- resname 'residue-name' (resname LYS]
+			
+- indices
   - list of index numbers for atoms selected to calculate COM stored in a txt file using a ',' delimiter
 
 
