@@ -10,16 +10,20 @@ Start by opening TEMPLATE.seekr in a text editor. To avoid overwriting the templ
 
 In TEMPLATE.seekr, you need to replace all the values labelled with the value "SOMETHING" and even some of the others. Notice that lines after the hashtag '#' character are merely comments for your benefit, and are ignored by SEEKR.
 
-We will go through one by one to change them to desired values:
-set 'project_name' to 'tryp'
-set 'root_dir' to a directory to construct the file tree. It should be someplace you don't mind running simulations from and containing large trajectory files, like a scratch directory. I will be refering to this directory as trypsin_project_directory from now on.
-set 'master_temperature' to '298'. This is the temperature used for all simulations and calculations (except temperature equilibration)
-set 'ens_equil_len' to '10000000'. This will be how many timesteps the umbrella sampling equilibrations will be. Of course, the longer the better, but must be carefully balanced among the milestones according to available computing resources. Umbrella sampling equilibrations seem to be the greatest cost in these SEEKR calculations.
-set 'number_of_ens_equil_frames' to '10000'. This many frames will be written to the DCD files during the umbrella sampling equilibrations (assuming the runs finish). The 'dcdfreq' parameters are automatically set and so are other parameters elsewhere in the calculation.
-set 'number_of_ens_equil_frames_skipped' to '3000'. It's probably a good idea to skip some initial amount of time in the umbrella sampling simulations. This tells how many of the DCD frames to skip.
-set 'extract_stride' to '1'. This gives the stride between frames of the umbrella sampling simulations that will be run in the reversal stage. A stride of '1' means that all frames will be used. Using this and the parameters above, it means that 700 frames of the umbrella sampling will continue on to be used in a reversal stage. It seems to be good to aim in the order of high hundreds or low thousands when choosing how many reversals to run.
+## Modifying the config file
 
-Set Program path information:
+We will go through one by one to change them to desired values:
+
+### Set Project details
+- set 'project_name' to 'tryp'
+- set 'root_dir' to a directory to construct the file tree. It should be someplace you don't mind running simulations from and containing large trajectory files, like a scratch directory. I will be refering to this directory as trypsin_project_directory from now on.
+- set 'master_temperature' to '298'. This is the temperature used for all simulations and calculations (except temperature equilibration)
+- set 'ens_equil_len' to '10000000'. This will be how many timesteps the umbrella sampling equilibrations will be. Of course, the longer the better, but must be carefully balanced among the milestones according to available computing resources. Umbrella sampling equilibrations seem to be the greatest cost in these SEEKR calculations.
+- set 'number_of_ens_equil_frames' to '10000'. This many frames will be written to the DCD files during the umbrella sampling equilibrations (assuming the runs finish). The 'dcdfreq' parameters are automatically set and so are other parameters elsewhere in the calculation.
+- set 'number_of_ens_equil_frames_skipped' to '3000'. It's probably a good idea to skip some initial amount of time in the umbrella sampling simulations. This tells how many of the DCD frames to skip.
+- set 'extract_stride' to '1'. This gives the stride between frames of the umbrella sampling simulations that will be run in the reversal stage. A stride of '1' means that all frames will be used. Using this and the parameters above, it means that 700 frames of the umbrella sampling will continue on to be used in a reversal stage. It seems to be good to aim in the order of high hundreds or low thousands when choosing how many reversals to run.
+
+### Set Program path information:
 If these paths are already specified in something like a bashrc, you can skip this step...
 
 inputgen_location /(your path)/src   #for Amarolab users: /soft/pdb2pqr/latest/src -- this should already be defined as an environment variable!
