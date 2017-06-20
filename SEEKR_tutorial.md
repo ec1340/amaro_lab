@@ -23,44 +23,49 @@ We will go through one by one to change them to desired values:
 - set 'number_of_ens_equil_frames_skipped' to '3000'. It's probably a good idea to skip some initial amount of time in the umbrella sampling simulations. This tells how many of the DCD frames to skip.
 - set 'extract_stride' to '1'. This gives the stride between frames of the umbrella sampling simulations that will be run in the reversal stage. A stride of '1' means that all frames will be used. Using this and the parameters above, it means that 700 frames of the umbrella sampling will continue on to be used in a reversal stage. It seems to be good to aim in the order of high hundreds or low thousands when choosing how many reversals to run.
 
-### Set Program path information:
-If these paths are already specified in something like a bashrc, you can skip this step...
+### Set Program path information
 
-inputgen_location /(your path)/src   #for Amarolab users: /soft/pdb2pqr/latest/src -- this should already be defined as an environment variable!
+*If these paths are already specified in something like a bashrc, you can skip this step...*
 
 These two are likely already aliased for Amarolab users:
 apbs_executable SOMETHING
 browndye_bin_dir SOMETHING # the path to the browndye bin
+inputgen_location /(your path)/src   #for Amarolab users: /soft/pdb2pqr/latest/src -- this should already be defined as an environment variable!
 
-set 'lig_pdb_filename' to point to 'benzamidine.pdb' in the tutorial folder. Notice that this file is an ordinary pdb file of the ligand without any waters.
-set 'lig_pqr_filename' to point to 'benzamidine.pqr' in the tutorial folder. This is a pqr file of the ligand that contains charge and radius information for each of the atoms.
-set 'rec_pdb_filename' to point to 'tryp_wet_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that DOES contain waters and dissolved salt ions. I usually take this PDB file from the last frame of an apo MD simulation, so it has had time to relax, and the waters have arranged around it.
+
+### Ligand/Receptor Information
+-set 'lig_pdb_filename' to point to 'benzamidine.pdb' in the tutorial folder. Notice that this file is an ordinary pdb file of the ligand without any waters.
+-set 'lig_pqr_filename' to point to 'benzamidine.pqr' in the tutorial folder. This is a pqr file of the ligand that contains charge and radius information for each of the atoms.
+-set 'rec_pdb_filename' to point to 'tryp_wet_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that DOES contain waters and dissolved salt ions. I usually take this PDB file from the last frame of an apo MD simulation, so it has had time to relax, and the waters have arranged around it.
 Leave 'rec_psf_filename' as it is. Since we are not using a CHARMM forcefield, but AMBER, no PSF files are required.
-set 'rec_dry_pdb_filename' to point to 'tryp_dry_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that contains NO waters or dissolved ions. This is usually the same structure as 'rec_pdb_filename' with the solvent removed.
-set 'rec_dry_pqr_filename' to point to 'tryp_dry_lastframe.pqr' in the tutorial folder. This is usually the same 'rec_dry_pdb_filename.pdb' structure, but has been run through a tool like PDB2PQR or has been written as a PQR file straight from the trajectory that 'rec_pdb_filename' came from.
-set 'script_interval' to '5'. This determines the stride between timesteps that the milestoning.tcl script is evaluated by NAMD. Therefore, a value of '5' will cause the milestones and the system to be evaluated every five timesteps in the MD simulations.
-set 'abort_on_crossing' to 'True'. If this is set to 'True', then forward phases will be stopped upon reaching another milestone. If set to 'False', then forward phases will continue past touching an adjacent milestone, and the simulations must be stopped using another method.
-set 'ligrange' to 'auto', which will automatically find the VMD-like selection of indeces that represent the ligand.
-set 'lig_com_indeces' to 'auto'. This is the same as 'ligrange' above, but represents the center of mass of the ligand during the MD simulations. This could be changed if it is thought that it might save computation time.
+-set 'rec_dry_pdb_filename' to point to 'tryp_dry_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that contains NO waters or dissolved ions. This is usually the same structure as 'rec_pdb_filename' with the solvent removed.
+-set 'rec_dry_pqr_filename' to point to 'tryp_dry_lastframe.pqr' in the tutorial folder. This is usually the same 'rec_dry_pdb_filename.pdb' structure, but has been run through a tool like PDB2PQR or has been written as a PQR file straight from the trajectory that 'rec_pdb_filename' came from.
+
+### NAMD TCL script parameters
+
+-set 'script_interval' to '5'. This determines the stride between timesteps that the milestoning.tcl script is evaluated by NAMD. Therefore, a value of '5' will cause the milestones and the system to be evaluated every five timesteps in the MD simulations.
+-set 'abort_on_crossing' to 'True'. If this is set to 'True', then forward phases will be stopped upon reaching another milestone. If set to 'False', then forward phases will continue past touching an adjacent milestone, and the simulations must be stopped using another method.
+-set 'ligrange' to 'auto', which will automatically find the VMD-like selection of indeces that represent the ligand.
+-set 'lig_com_indeces' to 'auto'. This is the same as 'ligrange' above, but represents the center of mass of the ligand during the MD simulations. This could be changed if it is thought that it might save computation time.
 
 MAYBE USE VMD TO DO THE FOLLOWING STEPS...
 
-set 'recrange' to 'auto', which will automatically find the VMD-like selection of indeces that represent the receptor.
-set 'rec_com_indeces' to 'auto_ca'. This will automatically find a range of all atoms that are alpha carbons in the receptor. The atoms with these indeces will be monitored during the simulation to determine the center of mass of the receptor. Notice the difference of this selection from 'recrange' above. This is because this list of indeces represents the alpha carbons of the receptor.
-set 'recrot' to 'True'. This is irrelevant for spherical milestones, but if planar milestones are being used, it should be 'True' if you want the planar milestones to rotate with the receptor. Otherwise, if you want the planar milestone to retain the same rotation, then set this to 'False'.
+-set 'recrange' to 'auto', which will automatically find the VMD-like selection of indeces that represent the receptor.
+-set 'rec_com_indeces' to 'auto_ca'. This will automatically find a range of all atoms that are alpha carbons in the receptor. The atoms with these indeces will be monitored during the simulation to determine the center of mass of the receptor. Notice the difference of this selection from 'recrange' above. This is because this list of indeces represents the alpha carbons of the receptor.
+-set 'recrot' to 'True'. This is irrelevant for spherical milestones, but if planar milestones are being used, it should be 'True' if you want the planar milestones to rotate with the receptor. Otherwise, if you want the planar milestone to retain the same rotation, then set this to 'False'.
 
+### Active Site using milestones 
 Now we are going to edit the parameters for the binding site in trypsin. This will require us to find some parameters by sight.
 
 If one has a PDB structure with the ligand bound, then finding the binding site and associated residues are relatively easy tasks. For Trypsin and Benzamidine, one such structure is PDB structure: 3PTB
 
 Open VMD and load PDB structure 3PTB. Color the protein white and view in a surface representation, then view "resname BEN" in licorice represenation. You should be able to clearly see the benzamidine ligand in the binding site.
 
-
 Now load the structure 'tryp_wet_lastframe.pdb' from the tutorial folder. Hide the waterbox, showing only the protein in a surface representation. Show residues 172 173 174 177 191 193 194 196 202 206 197 in a special color to highlight the binding site of trypsin. These will have different residue numbering than in the crystal structure because of the MD simulation done on 'tryp_wet_lastframe.pdb' previously. If desire, you can overlay the apo structure to the holo crystal structure using the MultiSeq tool in the VMD Extensions menu. I chose them because these are residues that appear to be interacting with the ligand, therefore, we can use the center of mass of these residues as the origin of our binding site.
 
 Within the site1 block, set 'anchor_function' to 'concentric_spheres_atom'. This option means that our milestones will be concentric spheres centered around an atom selection.
-set 'r' to '14.0'. This means that the largest spherical milestone will extend with a radius of 14 Angstroms.
-set 'r_low' to '2.0'. This is the radius of the innermost milestone in Angstroms.
+- set 'r' to '14.0'. This means that the largest spherical milestone will extend with a radius of 14 Angstroms.
+- set 'r_low' to '2.0'. This is the radius of the innermost milestone in Angstroms.
 
 ALternatively, you can manually specify
 
@@ -68,7 +73,7 @@ In VMD, make the 'tryp_wet_lastframe.pdb' file be the top molecule. In the tkcon
 Then type: 'measure center $site'
 Take note of the resulting coordinates. They should be approximately: "-1.536, 13.860, 16.540"
 
-Set 'x' to be '-1.536'. Set 'y' to be '13.860'. Set 'z' to be '16.540'.
+- Set 'x' to be '-1.536'. Set 'y' to be '13.860'. Set 'z' to be '16.540'.
 
 Now, in the tkconsole window, type: '$site get serial'. The following numbers should be returned: '2479 2490 2500 2536 2719 2746 2770 2788 2795 2868 2927'. Make these numbers the values for the 'atomid' parameter.
 
@@ -80,11 +85,11 @@ Alternatively, on the VMD website, there is a page that contains all the scripts
 
 In my case, it was '4.336 203.9 99.89'
 
-Set the 'vx', 'vy', 'vz' values to be the values you obtained. Or you can use my values on the line above.
+- Set the 'vx', 'vy', 'vz' values to be the values you obtained. Or you can use my values on the line above.
 
 The parameters 'startvx', 'startvy', and 'startvz' allow more control over how the ligand is arranged along the milestones. This vector points from the origin to the location on the first milestone where to start the (vx, vy, vz) vector. If unsure how to modify this, then make 'startvx', 'startvy', and 'startvz' to be the same as 'vx', 'vy', and 'vz'.
 
-Set the 'increment' value to be '2.0'. This is the spacing, in Angstroms, between the milestones.
+- Set the 'increment' value to be '2.0'. This is the spacing, in Angstroms, between the milestones.
 
 Alternatively, you can manually specify the placement of milestones using the
 radius list option and provide a string of distances (e.g. 1 2 3 4 6 8 )
