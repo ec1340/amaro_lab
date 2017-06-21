@@ -23,14 +23,29 @@
 - 1.8 BD Parameters
 - 1.9 APBS Parameters
 
-## [2 Run SEEKR](#section2.0)
-<a href='#section2.0></a?
-#### 2.1 Running seekr.py
-#### 2.2 Anchor notation
+#### [2. Run SEEKR](#section2.0)
+- 2.1 Running seekr.py
+- 2.2 Anchor notation
 
-## [3 Running the MD](#section3.0)
-<a href='#section1.0></a
+#### [3. Running the MD](#section3.0)
+- 3.1 Minimizations
+- 3.2 Temperature Equilibrations
+- 3.3 Ensemble Equilbration (Umbrella Sampling)\
+- 3.4 Forward Reverse Stage
 
+#### [4. BD Stage](#section4.0)
+- 4.1 bd_top
+- 4.2 B_surface
+- 4.3 Outer Milestone Simulations
+- 4.4 Consolidation of Simulations
+
+#### [5. Analysis](#section5.0)
+- 5.1 Running Analyze.py
+- 5.2 On-rate
+
+
+
+### <a name="section1.0"></a>1. Setting up the configuration file (.seekr)
 
 
 First, ensure that you have installed SEEKR and all its required software (see README for dependencies). It is also recommended that you use the README/manual to familiarize yourself with the parameters that SEEKR uses. This tutorial also assumes that you are proficient in VMD.
@@ -39,13 +54,11 @@ I have prepared a SEEKR input file for Trypsin in the tutorial files (tryp.seekr
 
 Start by opening TEMPLATE.seekr in a text editor. To avoid overwriting the template file, save the file as something else, like "my_tryp.seekr".
 
-In TEMPLATE.seekr, you need to replace all the values labelled with the value "SOMETHING" and even some of the others. Notice that lines after the hashtag '#' character are merely comments for your benefit, and are ignored by SEEKR.
-
-## <a name="section1.0"></a> 1 Setting up the configuration file (.seekr)
+In TEMPLATE.seekr, you need to replace all the values labeled with the value "SOMETHING" and even some of the others. Notice that lines after the hashtag '#' character are merely comments for your benefit, and are ignored by SEEKR.
 
 We will go through one by one to change them to desired values:
 
-### 1.1 Set Project details
+#### 1.1 Set Project details
 
 - set 'project_name' to 'tryp'
 - set 'root_dir' to a directory to construct the file tree. It should be someplace you don't mind running simulations from and containing large trajectory files, like a scratch directory. I will be refering to this directory as trypsin_project_directory from now on.
@@ -55,7 +68,7 @@ We will go through one by one to change them to desired values:
 - set 'number_of_ens_equil_frames_skipped' to '3000'. It's probably a good idea to skip some initial amount of time in the umbrella sampling simulations. This tells how many of the DCD frames to skip.
 - set 'extract_stride' to '1'. This gives the stride between frames of the umbrella sampling simulations that will be run in the reversal stage. A stride of '1' means that all frames will be used. Using this and the parameters above, it means that 700 frames of the umbrella sampling will continue on to be used in a reversal stage. It seems to be good to aim in the order of high hundreds or low thousands when choosing how many reversals to run.
 
-### Set Program path information
+#### 1.2 Set Program path information
 
 *If these paths are already specified in something like a bashrc, you can skip this step...*
 
@@ -65,7 +78,7 @@ browndye_bin_dir SOMETHING # the path to the browndye bin
 inputgen_location /(your path)/src   #for Amarolab users: /soft/pdb2pqr/latest/src -- this should already be defined as an environment variable!
 
 
-### Ligand/Receptor Information
+### 1.3 Ligand/Receptor Information
 - set 'lig_pdb_filename' to point to 'benzamidine.pdb' in the tutorial folder. Notice that this file is an ordinary pdb file of the ligand without any waters.
 - set 'lig_pqr_filename' to point to 'benzamidine.pqr' in the tutorial folder. This is a pqr file of the ligand that contains charge and radius information for each of the atoms.
 - set 'rec_pdb_filename' to point to 'tryp_wet_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that DOES contain waters and dissolved salt ions. I usually take this PDB file from the last frame of an apo MD simulation, so it has had time to relax, and the waters have arranged around it.
@@ -73,7 +86,7 @@ Leave 'rec_psf_filename' as it is. Since we are not using a CHARMM forcefield, b
 - set 'rec_dry_pdb_filename' to point to 'tryp_dry_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that contains NO waters or dissolved ions. This is usually the same structure as 'rec_pdb_filename' with the solvent removed.
 - set 'rec_dry_pqr_filename' to point to 'tryp_dry_lastframe.pqr' in the tutorial folder. This is usually the same 'rec_dry_pdb_filename.pdb' structure, but has been run through a tool like PDB2PQR or has been written as a PQR file straight from the trajectory that 'rec_pdb_filename' came from.
 
-### NAMD TCL script parameters
+### 1.4 NAMD TCL script parameters
 
 - set 'script_interval' to '5'. This determines the stride between timesteps that the milestoning.tcl script is evaluated by NAMD. Therefore, a value of '5' will cause the milestones and the system to be evaluated every five timesteps in the MD simulations.
 - set 'abort_on_crossing' to 'True'. If this is set to 'True', then forward phases will be stopped upon reaching another milestone. If set to 'False', then forward phases will continue past touching an adjacent milestone, and the simulations must be stopped using another method.
@@ -86,7 +99,7 @@ MAYBE USE VMD TO DO THE FOLLOWING STEPS...
 - set 'rec_com_indeces' to 'auto_ca'. This will automatically find a range of all atoms that are alpha carbons in the receptor. The atoms with these indeces will be monitored during the simulation to determine the center of mass of the receptor. Notice the difference of this selection from 'recrange' above. This is because this list of indeces represents the alpha carbons of the receptor.
 - set 'recrot' to 'True'. This is irrelevant for spherical milestones, but if planar milestones are being used, it should be 'True' if you want the planar milestones to rotate with the receptor. Otherwise, if you want the planar milestone to retain the same rotation, then set this to 'False'.
 
-### Active Site using milestones 
+### 1.5 Active Site using milestones 
 Now we are going to edit the parameters for the binding site in trypsin. This will require us to find some parameters by sight.
 
 If one has a PDB structure with the ligand bound, then finding the binding site and associated residues are relatively easy tasks. For Trypsin and Benzamidine, one such structure is PDB structure: 3PTB
@@ -136,9 +149,9 @@ We have finished defining the binding site of Trypsin, now we are filling out de
 Set 'hedron' to 'single'. This is a future feature concerning rotational milestones.
 Set 'reject_clashes' to 'True'. This will ensure that there are no steric clashes when the holo structure is generated for each milestone. If there is a steric clash, then no directory will be generated for that milestone, although it will still be monitored for crossing events.
 
-Set 'ff' to 'amber'.
+- Set 'ff' to 'amber'.
 
-set 'water model' to 'tip4p'
+- set 'water model' to 'tip4p'
 
 Now we need to fill out the LEAP commands. You can do this by hand by entering values into the 'leap_preload_commands' and 'leap_postload_commands' parameters, or by using 'sample_leap_file' and providing a sample LEAP script that SEEKR can use to parse the locations and specifics of generating a holo structure.
 
@@ -166,16 +179,16 @@ Of course change /path/to/tutorial to the true path to the tutorial files...
 
 And write the following also:
       
-leap_postload_commands [
-        bond holo.7.SG holo.137.SG,
-        bond holo.25.SG holo.41.SG,
-        bond holo.109.SG holo.210.SG,
-        bond holo.116.SG holo.183.SG,
-        bond holo.148.SG holo.162.SG,
-        bond holo.173.SG holo.197.SG,
-        charge holo,
-        check holo,
-      ]
+      leap_postload_commands [
+            bond holo.7.SG holo.137.SG,
+            bond holo.25.SG holo.41.SG,
+            bond holo.109.SG holo.210.SG,
+            bond holo.116.SG holo.183.SG,
+            bond holo.148.SG holo.162.SG,
+            bond holo.173.SG holo.197.SG,
+            charge holo,
+            check holo,
+          ]
 
 This will create the necessary disulfide bonds for our system.
 
