@@ -6,15 +6,15 @@
 
 
 
-## [1 Setting up the configuration file (.seekr)](#section1.0)
+#### [1 Setting up the configuration file (.seekr)](#section1.0)
 
-## [Ahoy](#matey)
-## <a name="matey"></a>Ahoy
+[Ahoy](#matey)
+<a name="matey"></a>Ahoy
 
-#### 1.1 Set Project Details
-#### 1.2 Set Program Path Information
-#### 1.3 Ligand/Receptor Information
-#### 1.4 NAMD TCL Script Parameters
+  1.1 Set Project Details
+  1.2 Set Program Path Information
+  1.3 Ligand/Receptor Information
+  1.4 NAMD TCL Script Parameters
 #### 1.5 Active Site Using Milestones
 #### 1.6 Ligand Positions/Orientations
 #### 1.7 MD Parameters
