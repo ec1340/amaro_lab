@@ -6,11 +6,11 @@
 
 #### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine
 
-_1. List item__  
-__1.1 List item
-_2. List item
-
-
+1. Ite
+  1.1. SubItemA
+  1.2. SubItemB
+    - wat
+      - inception noise
 #### [1. Setting up the configuration file (.seekr)](#section1.0)
 1. Setting up config  
   1.1 Set Project Details
