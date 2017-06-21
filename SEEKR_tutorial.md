@@ -6,20 +6,15 @@
 
 #### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine
 
-1. Ite
-  1.1. SubItemA
-  1.2. SubItemB
-    - wat
-      - inception noise
 #### [1. Setting up the configuration file (.seekr)](#section1.0)
 
-- 1.1 Set Project Details
-- 1.2 Set Program Path Information
-- 1.3 Ligand/Receptor Information
-- 1.4 NAMD TCL Script Parameters
-- 1.5 Active Site Using Milestones
-- 1.6 Ligand Positions/Orientations
-- 1.7 MD Parameters
+- [1.1 Set Project Details](#section1.1)
+- [1.2 Set Program Path Information](#section1.2)
+- [1.3 Ligand/Receptor Information](#section1.3)
+- [1.4 NAMD TCL Script Parameters](#section1.4)
+- [1.5 Active Site Using Milestones](#section1.5)
+- [1.6 Ligand Positions/Orientations](#section1.6)
+- [1.7 MD Parameters](#section1.7)
 - 1.8 BD Parameters
 - 1.9 APBS Parameters
 
@@ -58,7 +53,7 @@ In TEMPLATE.seekr, you need to replace all the values labeled with the value "SO
 
 We will go through one by one to change them to desired values:
 
-#### 1.1 Set Project details
+#### <a name="section1.1"></a>1.1 Set Project details
 
 - set 'project_name' to 'tryp'
 - set 'root_dir' to a directory to construct the file tree. It should be someplace you don't mind running simulations from and containing large trajectory files, like a scratch directory. I will be refering to this directory as trypsin_project_directory from now on.
@@ -145,9 +140,11 @@ NOTE: the radius lis option will override the increment option
 
 **Our SEEKR setup for this system used 'radius_list 1 1.5 2 2.5 3 4 6 8 10 12 14'
 
+#### 1.
+
 We have finished defining the binding site of Trypsin, now we are filling out details of the MD portion of the calculation
-Set 'hedron' to 'single'. This is a future feature concerning rotational milestones.
-Set 'reject_clashes' to 'True'. This will ensure that there are no steric clashes when the holo structure is generated for each milestone. If there is a steric clash, then no directory will be generated for that milestone, although it will still be monitored for crossing events.
+- Set 'hedron' to 'single'. This is a future feature concerning rotational milestones.
+- Set 'reject_clashes' to 'True'. This will ensure that there are no steric clashes when the holo structure is generated for each milestone. If there is a steric clash, then no directory will be generated for that milestone, although it will still be monitored for crossing events.
 
 - Set 'ff' to 'amber'.
 
@@ -157,20 +154,20 @@ Now we need to fill out the LEAP commands. You can do this by hand by entering v
 
 We will do the former. Write the following into the file:
 
-leap_preload_commands [
-  source leaprc.ff14SB,
-        source leaprc.gaff,
-        set default FlexibleWater on,
-        set default PBRadii mbondi2,
-        loadoff /path/to/tutorial/Ca2.lib,
-        loadoff /path/to/tutorial/benzamidine.lib,
-        loadamberparams /path/to/tutorial/benzamidine.frcmod,
-        WAT= T4E,
-        HOH= T4E,
-        loadAmberParams frcmod.ionsjc_tip4pew,
-        loadAmberParams frcmod.tip4pew,
+    leap_preload_commands [
+      source leaprc.ff14SB,
+            source leaprc.gaff,
+            set default FlexibleWater on,
+            set default PBRadii mbondi2,
+            loadoff /path/to/tutorial/Ca2.lib,
+            loadoff /path/to/tutorial/benzamidine.lib,
+            loadamberparams /path/to/tutorial/benzamidine.frcmod,
+            WAT= T4E,
+            HOH= T4E,
+            loadAmberParams frcmod.ionsjc_tip4pew,
+            loadAmberParams frcmod.tip4pew,
     
-  ]
+      ]
 
 
 ## <a name="matey"></a>Ahoy
@@ -193,33 +190,33 @@ And write the following also:
 This will create the necessary disulfide bonds for our system.
 
 
-Set 'leap_program' to 'tleap'
+- Set 'leap_program' to 'tleap'
 
 We will want to run minimizations, so set 'min' to 'True'
-Set 'min_constrained' to the list: ['ligand','receptor']. We don't want either the ligand or receptor to move during minimizations: solvent only.
-Set 'min_num_steps' to '5000'.
-Set 'min_out_freq' to '500'.
-Set 'min_ensemble' to 'nve'.
+- Set 'min_constrained' to the list: ['ligand','receptor']. We don't want either the ligand or receptor to move during minimizations: solvent only.
+- Set 'min_num_steps' to '5000'.
+- Set 'min_out_freq' to '500'.
+- Set 'min_ensemble' to 'nve'.
 
-Set 'temp_equil' to 'True'. Temperature equilibrations heat up the solvent to allow the waters and ions to relax around the biomolecules. We ramp up the temperature and then let it fall back again.
-Set 'temp_equil_constrained' to [ 'ligand', 'receptor' ]. We don't want either the ligand or receptor to move during temperature equilibrations: solvent only.
-Set 'temp_equil_peak_temp' to '350'. This defines the peak temperature (in K) to heat the simulation to.
-Set 'temp_equil_temp_increment' to '10'. How many degrees K per increment while rising temperature.
-Set 'temp_equil_num_steps' to '1000'. This is the number of steps per temperature increment
-Set 'temp_equil_ensemble' to 'nvt'. 
+- Set 'temp_equil' to 'True'. Temperature equilibrations heat up the solvent to allow the waters and ions to relax around the biomolecules. We ramp up the temperature and then let it fall back again.
+- Set 'temp_equil_constrained' to [ 'ligand', 'receptor' ]. We don't want either the ligand or receptor to move during temperature equilibrations: solvent only.
+- Set 'temp_equil_peak_temp' to '350'. This defines the peak temperature (in K) to heat the simulation to.
+- Set 'temp_equil_temp_increment' to '10'. How many degrees K per increment while rising temperature.
+- Set 'temp_equil_num_steps' to '1000'. This is the number of steps per temperature increment
+- Set 'temp_equil_ensemble' to 'nvt'. 
 
-Set 'ens_equil' to 'True'. This is whether we will run constrained runs for ensemble equilibrations (umbrella sampling) in order to generate the equilibrium distribution.
-Set 'ens_equil_colvars' to 'True'. Whether collective variables should be imposed between the ligand and the receptor. This is the umbrella sampling.
-Set 'ens_equil_colvar_sel' to [ 'ligand', 'receptor' ]. This is a list of what parts of the system will have collective variables imposed. Options include 'ligand', 'receptor', 'water', 'relative' (for relative colvars between ligand/receptor), or a list of all indeces in pdb to be constrained
-Set 'ens_equil_colvar_force' to '90.0' # kcal/mol
-Set 'ens_equil_colvarstrajfrequency' to '100000'
-Set 'ens_equil_colvarsrestartfrequency' to '100000'
-Set 'ens_equil_colvar_ligand_indeces' to '3234 to 3251'. These are the indeces that represent the ligand.
-Set 'ens_equil_colvar_receptor_indeces' to '2475 2487 2498 2756 2798 2909'. These are the indeces that represent the receptor.
-Set 'ens_equil_ensemble' to 'nvt'
+- Set 'ens_equil' to 'True'. This is whether we will run constrained runs for ensemble equilibrations (umbrella sampling) in order to generate the equilibrium distribution.
+- Set 'ens_equil_colvars' to 'True'. Whether collective variables should be imposed between the ligand and the receptor. This is the umbrella sampling.
+- Set 'ens_equil_colvar_sel' to [ 'ligand', 'receptor' ]. This is a list of what parts of the system will have collective variables imposed. Options include 'ligand', 'receptor', 'water', 'relative' (for relative colvars between ligand/receptor), or a list of all indeces in pdb to be constrained
+- Set 'ens_equil_colvar_force' to '90.0' # kcal/mol
+- Set 'ens_equil_colvarstrajfrequency' to '100000'
+- Set 'ens_equil_colvarsrestartfrequency' to '100000'
+- Set 'ens_equil_colvar_ligand_indeces' to '3234 to 3251'. These are the indeces that represent the ligand.
+- Set 'ens_equil_colvar_receptor_indeces' to '2475 2487 2498 2756 2798 2909'. These are the indeces that represent the receptor.
+- Set 'ens_equil_ensemble' to 'nvt'
 
-Set 'fwd_rev_ensemble' to 'nve'. Forward and reverse phases should be run in the NVE ensemble.
-Set 'fwd_rev_type' to 'protein'. This can be 'protein' or 'membrane', and merely affects the parameters used.
+- Set 'fwd_rev_ensemble' to 'nve'. Forward and reverse phases should be run in the NVE ensemble.
+- Set 'fwd_rev_type' to 'protein'. This can be 'protein' or 'membrane', and merely affects the parameters used.
 Set 'fwd_rev_dcdfreq' to '1000'. This is how frequently to write the DCD files.
 Set 'fwd_rev_restart_freq' to '1000'. This is how frequently to write the restart files.
 Set 'fwd_rev_run_freq' to '1000'. This is how freqently to check whether a simulation terminated because a milestone was crossed.
@@ -398,32 +395,38 @@ NOTE: the radius lis option will override the increment option
 
 **Our SEEKR setup for this system used 'radius_list 1 1.5 2 2.5 3 4 6 8 10 12 14'
 
+#### 1.6 Ligand Postions/Orientations
+
 We have finished defining the binding site of Trypsin, now we are filling out details of the MD portion of the calculation
-Set 'hedron' to 'single'. This is a future feature concerning rotational milestones.
-Set 'reject_clashes' to 'True'. This will ensure that there are no steric clashes when the holo structure is generated for each milestone. If there is a steric clash, then no directory will be generated for that milestone, although it will still be monitored for crossing events.
+- Set 'hedron' to 'single'. This is a future feature concerning rotational milestones.
+- Set 'reject_clashes' to 'True'. This will ensure that there are no steric clashes when the holo structure is generated for each milestone. If there is a steric clash, then no directory will be generated for that milestone, although it will still be monitored for crossing events.
 
-Set 'ff' to 'amber'.
+#### 1.7 MD Parameters
 
-set 'water model' to 'tip4p'
+- set 'ff' to 'amber'.
+
+- set 'water model' to 'tip4p'
 
 Now we need to fill out the LEAP commands. You can do this by hand by entering values into the 'leap_preload_commands' and 'leap_postload_commands' parameters, or by using 'sample_leap_file' and providing a sample LEAP script that SEEKR can use to parse the locations and specifics of generating a holo structure.
 
 We will do the former. Write the following into the file:
 
-leap_preload_commands [
-  source leaprc.ff14SB,
-        source leaprc.gaff,
-        set default FlexibleWater on,
-        set default PBRadii mbondi2,
-        loadoff /path/to/tutorial/Ca2.lib,
-        loadoff /path/to/tutorial/benzamidine.lib,
-        loadamberparams /path/to/tutorial/benzamidine.frcmod,
-        WAT= T4E,
-        HOH= T4E,
-        loadAmberParams frcmod.ionsjc_tip4pew,
-        loadAmberParams frcmod.tip4pew,
+**LEAP**
+
+    leap_preload_commands [
+      source leaprc.ff14SB,
+            source leaprc.gaff,
+            set default FlexibleWater on,
+            set default PBRadii mbondi2,
+            loadoff /path/to/tutorial/Ca2.lib,
+            loadoff /path/to/tutorial/benzamidine.lib,
+            loadamberparams /path/to/tutorial/benzamidine.frcmod,
+            WAT= T4E,
+            HOH= T4E,
+            loadAmberParams frcmod.ionsjc_tip4pew,
+            loadAmberParams frcmod.tip4pew,
     
-  ]
+      ]
 
 
 
@@ -431,21 +434,21 @@ Of course change /path/to/tutorial to the true path to the tutorial files...
 
 And write the following also:
       
-leap_postload_commands [
-        bond holo.7.SG holo.137.SG,
-        bond holo.25.SG holo.41.SG,
-        bond holo.109.SG holo.210.SG,
-        bond holo.116.SG holo.183.SG,
-        bond holo.148.SG holo.162.SG,
-        bond holo.173.SG holo.197.SG,
-        charge holo,
-        check holo,
-      ]
+      leap_postload_commands [
+            bond holo.7.SG holo.137.SG,
+            bond holo.25.SG holo.41.SG,
+            bond holo.109.SG holo.210.SG,
+            bond holo.116.SG holo.183.SG,
+            bond holo.148.SG holo.162.SG,
+            bond holo.173.SG holo.197.SG,
+            charge holo,
+            check holo,
+          ]
 
 This will create the necessary disulfide bonds for our system.
 
 
-Set 'leap_program' to 'tleap'
+- Set 'leap_program' to 'tleap'
 
 We will want to run minimizations, so set 'min' to 'True'
 Set 'min_constrained' to the list: ['ligand','receptor']. We don't want either the ligand or receptor to move during minimizations: solvent only.
