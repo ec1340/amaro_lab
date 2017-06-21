@@ -12,6 +12,7 @@ _2. List item
 
 
 #### [1. Setting up the configuration file (.seekr)](#section1.0)
+1. Setting up config  
   1.1 Set Project Details
   1.2 Set Program Path Information
   1.3 Ligand/Receptor Information
