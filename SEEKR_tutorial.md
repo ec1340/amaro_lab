@@ -1,26 +1,15 @@
-# SEEKR Tutorial - How to prepare a job
+## SEEKR Tutorial - How to prepare a job
 
 
 
-
-
-### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine.
-
-
-
-## [1 Setting up the configuration file (.seekr)]# SEEKR Tutorial - How to prepare a job
+#### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine
 
 
 
+## [1 Setting up the configuration file (.seekr)](#section1.0)
 
-
-### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine.
-
-
-
-## [1 Setting up the configuration file (.seekr)](#1=setting-up-the-configuration-file)
 ## [Ahoy](#matey)
-
+## <a name="matey"></a>Ahoy
 
 #### 1.1 Set Project Details
 #### 1.2 Set Program Path Information
@@ -50,7 +39,7 @@ Start by opening TEMPLATE.seekr in a text editor. To avoid overwriting the templ
 
 In TEMPLATE.seekr, you need to replace all the values labelled with the value "SOMETHING" and even some of the others. Notice that lines after the hashtag '#' character are merely comments for your benefit, and are ignored by SEEKR.
 
-## 1 Setting up the configuration file (.seekr)
+## <a name="section1.0"></a> 1 Setting up the configuration file (.seekr)
 
 We will go through one by one to change them to desired values:
 
