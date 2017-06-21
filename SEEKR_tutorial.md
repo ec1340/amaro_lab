@@ -6,11 +6,13 @@
 
 #### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine
 
+1. Actual numbers don't matter, just that it's a number
+⋅⋅1. Ordered sub-list
 
 
 #### [1 Setting up the configuration file (.seekr)](#section1.0)
-#### 1.1 Set Project Details
-#### 1.2 Set Program Path Information
+1.1 Set Project Details
+1.2 Set Program Path Information
 #### 1.3 Ligand/Receptor Information
 #### 1.4 NAMD TCL Script Parameters
 #### 1.5 Active Site Using Milestones
