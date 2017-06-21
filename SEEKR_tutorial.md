@@ -1,20 +1,18 @@
 ## SEEKR Tutorial - How to prepare a job
 
 
+[Ahoy](#matey)
+<a name="matey"></a>Ahoy
 
 #### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine
 
 
 
 #### [1 Setting up the configuration file (.seekr)](#section1.0)
-
-[Ahoy](#matey)
-<a name="matey"></a>Ahoy
-
-  1.1 Set Project Details
-  1.2 Set Program Path Information
-  1.3 Ligand/Receptor Information
-  1.4 NAMD TCL Script Parameters
+#### 1.1 Set Project Details
+#### 1.2 Set Program Path Information
+#### 1.3 Ligand/Receptor Information
+#### 1.4 NAMD TCL Script Parameters
 #### 1.5 Active Site Using Milestones
 #### 1.6 Ligand Positions/Orientations
 #### 1.7 MD Parameters
@@ -43,7 +41,8 @@ In TEMPLATE.seekr, you need to replace all the values labelled with the value "S
 
 We will go through one by one to change them to desired values:
 
-### Set Project details
+### 1.1 Set Project details
+
 - set 'project_name' to 'tryp'
 - set 'root_dir' to a directory to construct the file tree. It should be someplace you don't mind running simulations from and containing large trajectory files, like a scratch directory. I will be refering to this directory as trypsin_project_directory from now on.
 - set 'master_temperature' to '298'. This is the temperature used for all simulations and calculations (except temperature equilibration)
