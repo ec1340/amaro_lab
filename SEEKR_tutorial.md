@@ -6,20 +6,21 @@
 
 #### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine
 
-1. Actual numbers don't matter, just that it's a number
-⋅⋅1. Ordered sub-list
+_1. List item__  
+__1.1 List item
+_2. List item
 
 
 #### [1 Setting up the configuration file (.seekr)](#section1.0)
-1.1 Set Project Details
-1.2 Set Program Path Information
-#### 1.3 Ligand/Receptor Information
-#### 1.4 NAMD TCL Script Parameters
-#### 1.5 Active Site Using Milestones
-#### 1.6 Ligand Positions/Orientations
-#### 1.7 MD Parameters
-#### 1.8 BD Parameters
-#### 1.9 APBS Parameters
+__1.1 Set Project Details
+__1.2 Set Program Path Information
+__1.3 Ligand/Receptor Information
+__1.4 NAMD TCL Script Parameters
+__1.5 Active Site Using Milestones
+__1.6 Ligand Positions/Orientations
+__1.7 MD Parameters
+__1.8 BD Parameters
+__1.9 APBS Parameters
 
 ## [2 Run SEEKR](#section2.0)
 <a href='#section2.0></a?
