@@ -1,9 +1,6 @@
 ## SEEKR Tutorial - How to prepare a job
 
 
-[Ahoy](#matey)
-<a name="matey"></a>Ahoy
-
 #### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine
 
 #### [1. Setting up the configuration file (.seekr)](#section1.0)
@@ -15,8 +12,8 @@
 - [1.5 Active Site Using Milestones](#section1.5)
 - [1.6 Ligand Positions/Orientations](#section1.6)
 - [1.7 MD Parameters](#section1.7)
-- 1.8 BD Parameters
-- 1.9 APBS Parameters
+- [1.8 BD Parameters](#section1.8)
+- [1.9 APBS Parameters](#section1.9)
 
 #### [2. Run SEEKR](#section2.0)
 - 2.1 Running seekr.py
@@ -55,46 +52,92 @@ We will go through one by one to change them to desired values:
 
 #### <a name="section1.1"></a>1.1 Set Project details
 
-- set 'project_name' to 'tryp'
-- set 'root_dir' to a directory to construct the file tree. It should be someplace you don't mind running simulations from and containing large trajectory files, like a scratch directory. I will be refering to this directory as trypsin_project_directory from now on.
-- set 'master_temperature' to '298'. This is the temperature used for all simulations and calculations (except temperature equilibration)
-- set 'ens_equil_len' to '10000000'. This will be how many timesteps the umbrella sampling equilibrations will be. Of course, the longer the better, but must be carefully balanced among the milestones according to available computing resources. Umbrella sampling equilibrations seem to be the greatest cost in these SEEKR calculations.
-- set 'number_of_ens_equil_frames' to '10000'. This many frames will be written to the DCD files during the umbrella sampling equilibrations (assuming the runs finish). The 'dcdfreq' parameters are automatically set and so are other parameters elsewhere in the calculation.
-- set 'number_of_ens_equil_frames_skipped' to '3000'. It's probably a good idea to skip some initial amount of time in the umbrella sampling simulations. This tells how many of the DCD frames to skip.
-- set 'extract_stride' to '1'. This gives the stride between frames of the umbrella sampling simulations that will be run in the reversal stage. A stride of '1' means that all frames will be used. Using this and the parameters above, it means that 700 frames of the umbrella sampling will continue on to be used in a reversal stage. It seems to be good to aim in the order of high hundreds or low thousands when choosing how many reversals to run.
+        - set 'project_name' to 'tryp'
+        
+        - set 'root_dir' to a directory to construct the file tree. 
+   
+- It should be someplace you don't mind running simulations from and containing large trajectory files, like a scratch directory. I will be refering to this directory as trypsin_project_directory from now on.
 
-#### 1.2 Set Program path information
+        - set 'master_temperature' to '298'. 
+        
+- This is the temperature used for all simulations and calculations (except temperature equilibration)
+
+        - set 'ens_equil_len' to '10000000'. 
+
+- This will be how many timesteps the umbrella sampling equilibrations will be. Of course, the longer the better, but must be carefully balanced among the milestones according to available computing resources. Umbrella sampling equilibrations seem to be the greatest cost in these SEEKR calculations.
+
+        - set 'number_of_ens_equil_frames' to '10000'. 
+- This many frames will be written to the DCD files during the umbrella sampling equilibrations (assuming the runs finish). The 'dcdfreq' parameters are automatically set and so are other parameters elsewhere in the calculation.
+
+        - set 'number_of_ens_equil_frames_skipped' to '3000'. 
+- It's probably a good idea to skip some initial amount of time in the umbrella sampling simulations. This tells how many of the DCD frames to skip.
+
+        - set 'extract_stride' to '1'. 
+- This gives the stride between frames of the umbrella sampling simulations that will be run in the reversal stage. A stride of '1' means that all frames will be used. Using this and the parameters above, it means that 700 frames of the umbrella sampling will continue on to be used in a reversal stage. It seems to be good to aim in the order of high hundreds or low thousands when choosing how many reversals to run.
+
+#### <a name="section1.2"></a>1.2 Set Program path information
 
 *If these paths are already specified in something like a bashrc, you can skip this step...*
 
 These two are likely already aliased for Amarolab users:
-apbs_executable SOMETHING
-browndye_bin_dir SOMETHING # the path to the browndye bin
-inputgen_location /(your path)/src   #for Amarolab users: /soft/pdb2pqr/latest/src -- this should already be defined as an environment variable!
+        
+        - apbs_executable SOMETHING
+        
+        - browndye_bin_dir SOMETHING # the path to the browndye bin
+        
+        - inputgen_location /(your path)/src   
+
+- #for Amarolab users: /soft/pdb2pqr/latest/src -- this should already be defined as an environment variable!
 
 
-### 1.3 Ligand/Receptor Information
-- set 'lig_pdb_filename' to point to 'benzamidine.pdb' in the tutorial folder. Notice that this file is an ordinary pdb file of the ligand without any waters.
-- set 'lig_pqr_filename' to point to 'benzamidine.pqr' in the tutorial folder. This is a pqr file of the ligand that contains charge and radius information for each of the atoms.
-- set 'rec_pdb_filename' to point to 'tryp_wet_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that DOES contain waters and dissolved salt ions. I usually take this PDB file from the last frame of an apo MD simulation, so it has had time to relax, and the waters have arranged around it.
-Leave 'rec_psf_filename' as it is. Since we are not using a CHARMM forcefield, but AMBER, no PSF files are required.
-- set 'rec_dry_pdb_filename' to point to 'tryp_dry_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that contains NO waters or dissolved ions. This is usually the same structure as 'rec_pdb_filename' with the solvent removed.
-- set 'rec_dry_pqr_filename' to point to 'tryp_dry_lastframe.pqr' in the tutorial folder. This is usually the same 'rec_dry_pdb_filename.pdb' structure, but has been run through a tool like PDB2PQR or has been written as a PQR file straight from the trajectory that 'rec_pdb_filename' came from.
+### <a name="section1.3"></a>1.3 Ligand/Receptor Information
+        
+        - set 'lig_pdb_filename' to point to 'benzamidine.pdb' in the tutorial folder. 
+- Notice that this file is an ordinary pdb file of the ligand without any waters.
+        
+        - set 'lig_pqr_filename' to point to 'benzamidine.pqr' in the tutorial folder. 
+- This is a pqr file of the ligand that contains charge and radius information for each of the atoms.
+        
+        - set 'rec_pdb_filename' to point to 'tryp_wet_lastframe.pdb' in the tutorial folder. 
+- This is a pdb file of the receptor molecule that DOES contain waters and dissolved salt ions. I usually take this PDB file from the last frame of an apo MD simulation, so it has had time to relax, and the waters have arranged around it.
+        
+        - Leave 'rec_psf_filename' as it is. 
+- Since we are not using a CHARMM forcefield, but AMBER, no PSF files are required.
+        
+        - set 'rec_dry_pdb_filename' to point to 'tryp_dry_lastframe.pdb' in the tutorial folder. 
+- This is a pdb file of the receptor molecule that contains NO waters or dissolved ions. This is usually the same structure as 'rec_pdb_filename' with the solvent removed.
+        
+        - set 'rec_dry_pqr_filename' to point to 'tryp_dry_lastframe.pqr' in the tutorial folder. 
+- This is usually the same 'rec_dry_pdb_filename.pdb' structure, but has been run through a tool like PDB2PQR or has been written as a PQR file straight from the trajectory that 'rec_pdb_filename' came from.
 
-### 1.4 NAMD TCL script parameters
+### <a name="section1.4"></a>1.4 NAMD TCL script parameters
 
-- set 'script_interval' to '5'. This determines the stride between timesteps that the milestoning.tcl script is evaluated by NAMD. Therefore, a value of '5' will cause the milestones and the system to be evaluated every five timesteps in the MD simulations.
-- set 'abort_on_crossing' to 'True'. If this is set to 'True', then forward phases will be stopped upon reaching another milestone. If set to 'False', then forward phases will continue past touching an adjacent milestone, and the simulations must be stopped using another method.
-- set 'ligrange' to 'auto', which will automatically find the VMD-like selection of indeces that represent the ligand.
-- set 'lig_com_indeces' to 'auto'. This is the same as 'ligrange' above, but represents the center of mass of the ligand during the MD simulations. This could be changed if it is thought that it might save computation time.
+        - set 'script_interval' to '5'. 
+- This determines the stride between timesteps that the milestoning.tcl script is evaluated by NAMD. Therefore, a value of '5' will cause the milestones and the system to be evaluated every five timesteps in the MD simulations.
+ 
+        - set 'abort_on_crossing' to 'True'. 
+- If this is set to 'True', then forward phases will be stopped upon reaching another milestone. If set to 'False', then forward phases will continue past touching an adjacent milestone, and the simulations must be stopped using another method.
 
-MAYBE USE VMD TO DO THE FOLLOWING STEPS...
+        - set 'ligrange' to 'auto' 
+- This will automatically find the VMD-like selection of indeces that represent the ligand.
 
-- set 'recrange' to 'auto', which will automatically find the VMD-like selection of indeces that represent the receptor.
-- set 'rec_com_indeces' to 'auto_ca'. This will automatically find a range of all atoms that are alpha carbons in the receptor. The atoms with these indeces will be monitored during the simulation to determine the center of mass of the receptor. Notice the difference of this selection from 'recrange' above. This is because this list of indeces represents the alpha carbons of the receptor.
-- set 'recrot' to 'True'. This is irrelevant for spherical milestones, but if planar milestones are being used, it should be 'True' if you want the planar milestones to rotate with the receptor. Otherwise, if you want the planar milestone to retain the same rotation, then set this to 'False'.
+        - set 'lig_com_indeces' to 'auto'. 
+- This is the same as 'ligrange' above, but represents the center of mass of the ligand during the MD simulations. This could be changed if it is thought that it might save computation time.
 
-### 1.5 Active Site using milestones 
+*MAYBE USE VMD TO DO THE FOLLOWING STEPS...*
+
+        - set 'recrange' to 'auto'
+- This will automatically find the VMD-like selection of indeces that represent the receptor.
+
+        - set 'rec_com_indeces' to 'auto_ca'. 
+- This will automatically find a range of all atoms that are alpha carbons in the receptor. The atoms with these indeces will be monitored during the simulation to determine the center of mass of the receptor. Notice the difference of this selection from 'recrange' above. This is because this list of indeces represents the alpha carbons of the receptor.
+
+        - set 'recrot' to 'True'. 
+- This is irrelevant for spherical milestones, but if planar milestones are being used, it should be 'True' if you want the planar milestones to rotate with the receptor. Otherwise, if you want the planar milestone to retain the same rotation, then set this to 'False'.
+
+### <a name="section1.5"></a>1.5 Active Site using milestones
+
+
 Now we are going to edit the parameters for the binding site in trypsin. This will require us to find some parameters by sight.
 
 If one has a PDB structure with the ligand bound, then finding the binding site and associated residues are relatively easy tasks. For Trypsin and Benzamidine, one such structure is PDB structure: 3PTB
@@ -104,8 +147,12 @@ Open VMD and load PDB structure 3PTB. Color the protein white and view in a surf
 Now load the structure 'tryp_wet_lastframe.pdb' from the tutorial folder. Hide the waterbox, showing only the protein in a surface representation. Show residues 172 173 174 177 191 193 194 196 202 206 197 in a special color to highlight the binding site of trypsin. These will have different residue numbering than in the crystal structure because of the MD simulation done on 'tryp_wet_lastframe.pdb' previously. If desire, you can overlay the apo structure to the holo crystal structure using the MultiSeq tool in the VMD Extensions menu. I chose them because these are residues that appear to be interacting with the ligand, therefore, we can use the center of mass of these residues as the origin of our binding site.
 
 Within the site1 block, set 'anchor_function' to 'concentric_spheres_atom'. This option means that our milestones will be concentric spheres centered around an atom selection.
-- set 'r' to '14.0'. This means that the largest spherical milestone will extend with a radius of 14 Angstroms.
-- set 'r_low' to '2.0'. This is the radius of the innermost milestone in Angstroms.
+
+        - set 'r' to '14.0'. 
+- This means that the largest spherical milestone will extend with a radius of 14 Angstroms.
+        
+        - set 'r_low' to '2.0'. 
+- This is the radius of the innermost milestone in Angstroms.
 
 ALternatively, you can manually specify
 
@@ -113,9 +160,11 @@ In VMD, make the 'tryp_wet_lastframe.pdb' file be the top molecule. In the tkcon
 Then type: 'measure center $site'
 Take note of the resulting coordinates. They should be approximately: "-1.536, 13.860, 16.540"
 
-- Set 'x' to be '-1.536'. Set 'y' to be '13.860'. Set 'z' to be '16.540'.
+        - Set 'x' to be '-1.536'. Set 'y' to be '13.860'. Set 'z' to be '16.540'.
 
-Now, in the tkconsole window, type: '$site get serial'. The following numbers should be returned: '2479 2490 2500 2536 2719 2746 2770 2788 2795 2868 2927'. Make these numbers the values for the 'atomid' parameter.
+Now, in the tkconsole window, type: '$site get serial'. The following numbers should be returned: '2479 2490 2500 2536 2719 2746 2770 2788 2795 2868 2927'.
+
+        - set 'atomid' to be '2479 2490 2500 2536 2719 2746 2770 2788 2795 2868 2927'
 
 Now we need to choose where to place the ligand on each milestone.
 
@@ -123,13 +172,14 @@ In the SEEKR/tools/setup direcory, there should be a script called 'moduseful.tc
 
 Alternatively, on the VMD website, there is a page that contains all the scripts (http://www.ks.uiuc.edu/Research/vmd/script_library/). Download the script called 'eye_line', though some modifications will be needed to make it return the vector from the atom selection to your eye.
 
-In my case, it was '4.336 203.9 99.89'
+**In my case, it was '4.336 203.9 99.89'**
 
-- Set the 'vx', 'vy', 'vz' values to be the values you obtained. Or you can use my values on the line above.
+        - Set the 'vx', 'vy', 'vz' values to be the values you obtained. Or you can use my values on the line above.
 
-The parameters 'startvx', 'startvy', and 'startvz' allow more control over how the ligand is arranged along the milestones. This vector points from the origin to the location on the first milestone where to start the (vx, vy, vz) vector. If unsure how to modify this, then make 'startvx', 'startvy', and 'startvz' to be the same as 'vx', 'vy', and 'vz'.
+- The parameters 'startvx', 'startvy', and 'startvz' allow more control over how the ligand is arranged along the milestones. This vector points from the origin to the location on the first milestone where to start the (vx, vy, vz) vector. If unsure how to modify this, then make 'startvx', 'startvy', and 'startvz' to be the same as 'vx', 'vy', and 'vz'.
 
-- Set the 'increment' value to be '2.0'. This is the spacing, in Angstroms, between the milestones.
+        - Set the 'increment' value to be '2.0'. 
+- This is the spacing, in Angstroms, between the milestones.
 
 Alternatively, you can manually specify the placement of milestones using the
 radius list option and provide a string of distances (e.g. 1 2 3 4 6 8 )
@@ -140,15 +190,23 @@ NOTE: the radius lis option will override the increment option
 
 **Our SEEKR setup for this system used 'radius_list 1 1.5 2 2.5 3 4 6 8 10 12 14'
 
-#### 1.
+#### <a name="section1.6"></a> 1.6 Ligand Positions/Orientations
 
 We have finished defining the binding site of Trypsin, now we are filling out details of the MD portion of the calculation
-- Set 'hedron' to 'single'. This is a future feature concerning rotational milestones.
-- Set 'reject_clashes' to 'True'. This will ensure that there are no steric clashes when the holo structure is generated for each milestone. If there is a steric clash, then no directory will be generated for that milestone, although it will still be monitored for crossing events.
 
-- Set 'ff' to 'amber'.
+        - set 'hedron' to 'single'. This is a future feature concerning rotational milestones.
 
-- set 'water model' to 'tip4p'
+        - set 'reject_clashes' to 'True'. 
+- This will ensure that there are no steric clashes when the holo structure is generated for each milestone. If there is a steric clash, then no directory will be generated for that milestone, although it will still be monitored for crossing events.
+
+
+#### <a name="section1.7"></a> 1.7 MD Parameters
+
+        - set 'ff' to 'amber'.
+
+        - set 'water model' to 'tip4p'
+        
+#### LEAP
 
 Now we need to fill out the LEAP commands. You can do this by hand by entering values into the 'leap_preload_commands' and 'leap_postload_commands' parameters, or by using 'sample_leap_file' and providing a sample LEAP script that SEEKR can use to parse the locations and specifics of generating a holo structure.
 
@@ -170,7 +228,7 @@ We will do the former. Write the following into the file:
       ]
 
 
-## <a name="matey"></a>Ahoy
+
 
 Of course change /path/to/tutorial to the true path to the tutorial files...
 
@@ -190,59 +248,126 @@ And write the following also:
 This will create the necessary disulfide bonds for our system.
 
 
-- Set 'leap_program' to 'tleap'
+        - Set 'leap_program' to 'tleap'
+
+#### MIN
 
 We will want to run minimizations, so set 'min' to 'True'
-- Set 'min_constrained' to the list: ['ligand','receptor']. We don't want either the ligand or receptor to move during minimizations: solvent only.
-- Set 'min_num_steps' to '5000'.
-- Set 'min_out_freq' to '500'.
-- Set 'min_ensemble' to 'nve'.
 
-- Set 'temp_equil' to 'True'. Temperature equilibrations heat up the solvent to allow the waters and ions to relax around the biomolecules. We ramp up the temperature and then let it fall back again.
-- Set 'temp_equil_constrained' to [ 'ligand', 'receptor' ]. We don't want either the ligand or receptor to move during temperature equilibrations: solvent only.
-- Set 'temp_equil_peak_temp' to '350'. This defines the peak temperature (in K) to heat the simulation to.
-- Set 'temp_equil_temp_increment' to '10'. How many degrees K per increment while rising temperature.
-- Set 'temp_equil_num_steps' to '1000'. This is the number of steps per temperature increment
-- Set 'temp_equil_ensemble' to 'nvt'. 
+        - Set 'min_constrained' to the list: ['ligand','receptor']. 
+- We don't want either the ligand or receptor to move during minimizations: solvent only.
 
-- Set 'ens_equil' to 'True'. This is whether we will run constrained runs for ensemble equilibrations (umbrella sampling) in order to generate the equilibrium distribution.
-- Set 'ens_equil_colvars' to 'True'. Whether collective variables should be imposed between the ligand and the receptor. This is the umbrella sampling.
-- Set 'ens_equil_colvar_sel' to [ 'ligand', 'receptor' ]. This is a list of what parts of the system will have collective variables imposed. Options include 'ligand', 'receptor', 'water', 'relative' (for relative colvars between ligand/receptor), or a list of all indeces in pdb to be constrained
-- Set 'ens_equil_colvar_force' to '90.0' # kcal/mol
-- Set 'ens_equil_colvarstrajfrequency' to '100000'
-- Set 'ens_equil_colvarsrestartfrequency' to '100000'
-- Set 'ens_equil_colvar_ligand_indeces' to '3234 to 3251'. These are the indeces that represent the ligand.
-- Set 'ens_equil_colvar_receptor_indeces' to '2475 2487 2498 2756 2798 2909'. These are the indeces that represent the receptor.
-- Set 'ens_equil_ensemble' to 'nvt'
+        - Set 'min_num_steps' to '5000'.
 
-- Set 'fwd_rev_ensemble' to 'nve'. Forward and reverse phases should be run in the NVE ensemble.
-- Set 'fwd_rev_type' to 'protein'. This can be 'protein' or 'membrane', and merely affects the parameters used.
-Set 'fwd_rev_dcdfreq' to '1000'. This is how frequently to write the DCD files.
-Set 'fwd_rev_restart_freq' to '1000'. This is how frequently to write the restart files.
-Set 'fwd_rev_run_freq' to '1000'. This is how freqently to check whether a simulation terminated because a milestone was crossed.
-Set 'fwd_rev_launches_per_config' to '1'. This is the number of times per config to reinitialize the velocities to obtain more crossing events in the reversal stage. This can be increased to observe more reversal runs that succeed in crossing to the forward stage.
-Set 'fwd_rev_frame_chunk_size' to '1700'. This specifies how many frames to submit to the replicas at any one time. If this number is too large (>10000), then memory overflows can occur.
+        - Set 'min_out_freq' to '500'.
+
+        - Set 'min_ensemble' to 'nve'.
+
+#### TEMP_EQUIL
+        - Set 'temp_equil' to 'True'. 
+- Temperature equilibrations heat up the solvent to allow the waters and ions to relax around the biomolecules. We ramp up the temperature and then let it fall back again.
+
+        - Set 'temp_equil_constrained' to [ 'ligand', 'receptor' ]. 
+- We don't want either the ligand or receptor to move during temperature equilibrations: solvent only.
+
+        - Set 'temp_equil_peak_temp' to '350'. 
+- This defines the peak temperature (in K) to heat the simulation to.
+
+        - Set 'temp_equil_temp_increment' to '10'. 
+- How many degrees K per increment while rising temperature.
+
+        - Set 'temp_equil_num_steps' to '1000'. 
+- This is the number of steps per temperature increment
+
+        - Set 'temp_equil_ensemble' to 'nvt'. 
+
+#### ENS_EQUIL
+
+        - Set 'ens_equil' to 'True'. 
+- This is whether we will run constrained runs for ensemble equilibrations (umbrella sampling) in order to generate the equilibrium distribution.
+
+        - Set 'ens_equil_colvars' to 'True'. 
+- Whether collective variables should be imposed between the ligand and the receptor. This is the umbrella sampling.
+
+        - Set 'ens_equil_colvar_sel' to [ 'ligand', 'receptor' ]. 
+- This is a list of what parts of the system will have collective variables imposed. Options include 'ligand', 'receptor', 'water', 'relative' (for relative colvars between ligand/receptor), or a list of all indeces in pdb to be constrained
+
+        - Set 'ens_equil_colvar_force' to '90.0' # kcal/mol
+        
+        - Set 'ens_equil_colvarstrajfrequency' to '100000'
+
+        - Set 'ens_equil_colvarsrestartfrequency' to '100000'
+
+        - Set 'ens_equil_colvar_ligand_indeces' to '3234 to 3251'. 
+- These are the indeces that represent the ligand.
+
+        - Set 'ens_equil_colvar_receptor_indeces' to '2475 2487 2498 2756 2798 2909'. 
+- These are the indeces that represent the receptor.
+
+        - Set 'ens_equil_ensemble' to 'nvt'
+
+#### FORWARD and REVERSAL
+
+        - Set 'fwd_rev_ensemble' to 'nve'. Forward and reverse phases should be run in the NVE ensemble.
+
+        - Set 'fwd_rev_type' to 'protein'. 
+- This can be 'protein' or 'membrane', and merely affects the parameters used.
+
+        - Set 'fwd_rev_dcdfreq' to '1000'. 
+- This is how frequently to write the DCD files.
+
+        -Set 'fwd_rev_restart_freq' to '1000'. 
+- This is how frequently to write the restart files.
+
+        - Set 'fwd_rev_run_freq' to '1000'. 
+- This is how freqently to check whether a simulation terminated because a milestone was crossed.
+
+        - Set 'fwd_rev_launches_per_config' to '1'. 
+-This is the number of times per config to reinitialize the velocities to obtain more crossing events in the reversal stage. This can be increased to observe more reversal runs that succeed in crossing to the forward stage.
+
+        - Set 'fwd_rev_frame_chunk_size' to '1700'. 
+- This specifies how many frames to submit to the replicas at any one time. If this number is too large (>10000), then memory overflows can occur.
 
 
+#### <a name="section1.8"></a> 1.8 BD Parameters
 Now we will fill out details concerning the BD portion of the simulation
 
-Set 'bd_threads' to '10'. This represents the number of cores to use for the BD calculation and will vary based on your computer. You can change this to better fit your computer by determining how many cores your computer has (check the hardware under About My Computer to see how many processors you have) and input that number here.
-Set 'bd_prods_per_anchor' to '1000000'. This is the number of BD simulations to run per surface that they are started on.
-Set 'bd_rec_pqr_filename' to 'tryp_dry_lastframe.pqr'.
+        - Set 'bd_threads' to '10'. 
+- This represents the number of cores to use for the BD calculation and will vary based on your computer. You can change this to better fit your computer by determining how many cores your computer has (check the hardware under About My Computer to see how many processors you have) and input that number here.
+
+        - Set 'bd_prods_per_anchor' to '1000000'. 
+- This is the number of BD simulations to run per surface that they are started on.
+
+        - Set 'bd_rec_pqr_filename' to 'tryp_dry_lastframe.pqr'.
+
+#### <a name="section1.9"></a> 1.9 APBS Parameters
 
 Last, we will fill out details concerning the electrostatics calculations used in the BD simulations. We are using a 20mM NaCl solution, and the nonlinear PBE for the calculations.
-Set 'ion1rad' to '1.6700'. This is the radius of the anion: Cl-.
-Set 'ion2rad' to '1.5700'. This is the radius of the cation: Na+.
-Set 'ion1conc' to '0.02'. The concentration of Cl-.
-Set 'ion2conc' to '0.02'. The concentration of Na+.
-Set 'lpbe_npbe' to 'npbe' to use the nonlinear PB equation solver. The nonlinear PBE may be useful for situations of high salt concentration or highly charged molecules like DNA.
-Set 'inputgen_fadd' to '130.0'. The number of angstroms to add to each side of the molecule in the electrostatic grid.
-Set 'inputgen_cfac' to '5.0'. This adjusts the size of the coarse grid calculation in APBS.
+
+        - Set 'ion1rad' to '1.6700'. 
+- This is the radius of the anion: Cl-.
+
+        - Set 'ion2rad' to '1.5700'. 
+- This is the radius of the cation: Na+.
+
+        - Set 'ion1conc' to '0.02'. 
+- The concentration of Cl-.
+
+        - Set 'ion2conc' to '0.02'. 
+- The concentration of Na+.
+        
+        - Set 'lpbe_npbe' to 'npbe' 
+- To use the nonlinear PB equation solver. The nonlinear PBE may be useful for situations of high salt concentration or highly charged molecules like DNA.
+
+        - Set 'inputgen_fadd' to '130.0'. 
+- The number of angstroms to add to each side of the molecule in the electrostatic grid.
+
+        - Set 'inputgen_cfac' to '5.0'. This adjusts the size of the coarse grid calculation in APBS.
 
 Now save the file as "trypsin.seekr".
 
 
-## 2 Run SEEKR
+## <a name="section2.0"></a>2. Run SEEKR
 
 Now we are finished with the preparations of the input file. Run the SEEKR program using the following command:
 
