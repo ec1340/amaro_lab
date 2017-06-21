@@ -9,21 +9,21 @@
 
 
 ## [1 Setting up the configuration file (.seekr)](#section1.0)
-<a href='#section1.0></a>
-### 1.1 Set Project Details
-### 1.2 Set Program Path Information
-### 1.3 Ligand/Receptor Information
-### 1.4 NAMD TCL Script Parameters
-### 1.5 Active Site Using Milestones
-### 1.6 Ligand Positions/Orientations
-### 1.7 MD Parameters
-### 1.8 BD Parameters
-### 1.9 APBS Parameters
+<a href='#section1></a>
+..1.1 Set Project Details
+#### 1.2 Set Program Path Information
+#### 1.3 Ligand/Receptor Information
+#### 1.4 NAMD TCL Script Parameters
+#### 1.5 Active Site Using Milestones
+#### 1.6 Ligand Positions/Orientations
+#### 1.7 MD Parameters
+#### 1.8 BD Parameters
+#### 1.9 APBS Parameters
 
 ## [2 Run SEEKR](#section2.0)
 <a href='#section2.0></a?
-### 2.1 Running seekr.py
-### 2.2 Anchor notation
+#### 2.1 Running seekr.py
+#### 2.2 Anchor notation
 
 ## [3 Running the MD](#section3.0)
 <a href='#section1.0></a
