@@ -1,6 +1,34 @@
 # SEEKR Tutorial - How to prepare a job
 
+
+
+
+
 ### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine.
+
+
+
+## [1 Setting up the configuration file (.seekr)](#section1.0)
+<a href='#section1.0></a>
+### 1.1 Set Project Details
+### 1.2 Set Program Path Information
+### 1.3 Ligand/Receptor Information
+### 1.4 NAMD TCL Script Parameters
+### 1.5 Active Site Using Milestones
+### 1.6 Ligand Positions/Orientations
+### 1.7 MD Parameters
+### 1.8 BD Parameters
+### 1.9 APBS Parameters
+
+## [2 Run SEEKR](#section2.0)
+<a href='#section2.0></a?
+### 2.1 Running seekr.py
+### 2.2 Anchor notation
+
+## [3 Running the MD](#section3.0)
+<a href='#section1.0></a
+
+
 
 First, ensure that you have installed SEEKR and all its required software (see README for dependencies). It is also recommended that you use the README/manual to familiarize yourself with the parameters that SEEKR uses. This tutorial also assumes that you are proficient in VMD.
 
@@ -10,7 +38,7 @@ Start by opening TEMPLATE.seekr in a text editor. To avoid overwriting the templ
 
 In TEMPLATE.seekr, you need to replace all the values labelled with the value "SOMETHING" and even some of the others. Notice that lines after the hashtag '#' character are merely comments for your benefit, and are ignored by SEEKR.
 
-## Modifying the config file
+## 1 Setting up the configuration file (.seekr)
 
 We will go through one by one to change them to desired values:
 
@@ -34,25 +62,25 @@ inputgen_location /(your path)/src   #for Amarolab users: /soft/pdb2pqr/latest/s
 
 
 ### Ligand/Receptor Information
--set 'lig_pdb_filename' to point to 'benzamidine.pdb' in the tutorial folder. Notice that this file is an ordinary pdb file of the ligand without any waters.
--set 'lig_pqr_filename' to point to 'benzamidine.pqr' in the tutorial folder. This is a pqr file of the ligand that contains charge and radius information for each of the atoms.
--set 'rec_pdb_filename' to point to 'tryp_wet_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that DOES contain waters and dissolved salt ions. I usually take this PDB file from the last frame of an apo MD simulation, so it has had time to relax, and the waters have arranged around it.
+- set 'lig_pdb_filename' to point to 'benzamidine.pdb' in the tutorial folder. Notice that this file is an ordinary pdb file of the ligand without any waters.
+- set 'lig_pqr_filename' to point to 'benzamidine.pqr' in the tutorial folder. This is a pqr file of the ligand that contains charge and radius information for each of the atoms.
+- set 'rec_pdb_filename' to point to 'tryp_wet_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that DOES contain waters and dissolved salt ions. I usually take this PDB file from the last frame of an apo MD simulation, so it has had time to relax, and the waters have arranged around it.
 Leave 'rec_psf_filename' as it is. Since we are not using a CHARMM forcefield, but AMBER, no PSF files are required.
--set 'rec_dry_pdb_filename' to point to 'tryp_dry_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that contains NO waters or dissolved ions. This is usually the same structure as 'rec_pdb_filename' with the solvent removed.
--set 'rec_dry_pqr_filename' to point to 'tryp_dry_lastframe.pqr' in the tutorial folder. This is usually the same 'rec_dry_pdb_filename.pdb' structure, but has been run through a tool like PDB2PQR or has been written as a PQR file straight from the trajectory that 'rec_pdb_filename' came from.
+- set 'rec_dry_pdb_filename' to point to 'tryp_dry_lastframe.pdb' in the tutorial folder. This is a pdb file of the receptor molecule that contains NO waters or dissolved ions. This is usually the same structure as 'rec_pdb_filename' with the solvent removed.
+- set 'rec_dry_pqr_filename' to point to 'tryp_dry_lastframe.pqr' in the tutorial folder. This is usually the same 'rec_dry_pdb_filename.pdb' structure, but has been run through a tool like PDB2PQR or has been written as a PQR file straight from the trajectory that 'rec_pdb_filename' came from.
 
 ### NAMD TCL script parameters
 
--set 'script_interval' to '5'. This determines the stride between timesteps that the milestoning.tcl script is evaluated by NAMD. Therefore, a value of '5' will cause the milestones and the system to be evaluated every five timesteps in the MD simulations.
--set 'abort_on_crossing' to 'True'. If this is set to 'True', then forward phases will be stopped upon reaching another milestone. If set to 'False', then forward phases will continue past touching an adjacent milestone, and the simulations must be stopped using another method.
--set 'ligrange' to 'auto', which will automatically find the VMD-like selection of indeces that represent the ligand.
--set 'lig_com_indeces' to 'auto'. This is the same as 'ligrange' above, but represents the center of mass of the ligand during the MD simulations. This could be changed if it is thought that it might save computation time.
+- set 'script_interval' to '5'. This determines the stride between timesteps that the milestoning.tcl script is evaluated by NAMD. Therefore, a value of '5' will cause the milestones and the system to be evaluated every five timesteps in the MD simulations.
+- set 'abort_on_crossing' to 'True'. If this is set to 'True', then forward phases will be stopped upon reaching another milestone. If set to 'False', then forward phases will continue past touching an adjacent milestone, and the simulations must be stopped using another method.
+- set 'ligrange' to 'auto', which will automatically find the VMD-like selection of indeces that represent the ligand.
+- set 'lig_com_indeces' to 'auto'. This is the same as 'ligrange' above, but represents the center of mass of the ligand during the MD simulations. This could be changed if it is thought that it might save computation time.
 
 MAYBE USE VMD TO DO THE FOLLOWING STEPS...
 
--set 'recrange' to 'auto', which will automatically find the VMD-like selection of indeces that represent the receptor.
--set 'rec_com_indeces' to 'auto_ca'. This will automatically find a range of all atoms that are alpha carbons in the receptor. The atoms with these indeces will be monitored during the simulation to determine the center of mass of the receptor. Notice the difference of this selection from 'recrange' above. This is because this list of indeces represents the alpha carbons of the receptor.
--set 'recrot' to 'True'. This is irrelevant for spherical milestones, but if planar milestones are being used, it should be 'True' if you want the planar milestones to rotate with the receptor. Otherwise, if you want the planar milestone to retain the same rotation, then set this to 'False'.
+- set 'recrange' to 'auto', which will automatically find the VMD-like selection of indeces that represent the receptor.
+- set 'rec_com_indeces' to 'auto_ca'. This will automatically find a range of all atoms that are alpha carbons in the receptor. The atoms with these indeces will be monitored during the simulation to determine the center of mass of the receptor. Notice the difference of this selection from 'recrange' above. This is because this list of indeces represents the alpha carbons of the receptor.
+- set 'recrot' to 'True'. This is irrelevant for spherical milestones, but if planar milestones are being used, it should be 'True' if you want the planar milestones to rotate with the receptor. Otherwise, if you want the planar milestone to retain the same rotation, then set this to 'False'.
 
 ### Active Site using milestones 
 Now we are going to edit the parameters for the binding site in trypsin. This will require us to find some parameters by sight.
@@ -199,7 +227,7 @@ Set 'inputgen_cfac' to '5.0'. This adjusts the size of the coarse grid calculati
 Now save the file as "trypsin.seekr".
 
 
-## Run SEEKR
+## 2 Run SEEKR
 
 Now we are finished with the preparations of the input file. Run the SEEKR program using the following command:
 
