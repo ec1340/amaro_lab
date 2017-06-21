@@ -20,7 +20,7 @@
 
 ## [1 Setting up the configuration file (.seekr)](#1=setting-up-the-configuration-file)
 [Ahoy](#matey)
-<a name="matey"></a>Ahoy
+
 
 #### 1.1 Set Project Details
 #### 1.2 Set Program Path Information
@@ -168,6 +168,7 @@ leap_preload_commands [
   ]
 
 ## Ahoy
+<a name="matey"></a>Ahoy
 
 Of course change /path/to/tutorial to the true path to the tutorial files...
 
