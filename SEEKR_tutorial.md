@@ -20,6 +20,8 @@
 
 ## [1 Setting up the configuration file (.seekr)](#1=setting-up-the-configuration-file)
 [Ahoy](#matey)
+<a name="matey"></a>Ahoy
+
 #### 1.1 Set Project Details
 #### 1.2 Set Program Path Information
 #### 1.3 Ligand/Receptor Information
