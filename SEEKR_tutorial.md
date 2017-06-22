@@ -445,14 +445,14 @@ Back up into the "md" folder. The other directories will be useful for running p
 Now back up two directories and enter the "b_surface" directory. Inside here are a number of files that will be used for BD simulations starting at this anchor.
 
 ====================================================
-## <a name="section3.0"></a> Running the MD
+## <a name="section3.0"></a> 3. Running the MD
 ====================================================
 
 Back up a directory so that you can see all the anchor folders.
 
 NOTE: It is VERY IMPORTANT in cases when you will be using SEEKR for real research, that you verify the validity of the NAMD input files with an expert in Molecular Dynamics.
 
-#### <a name="section3.1"></a> MINIMIZATIONS:
+#### <a name="section3.1"></a> 3.1 MINIMIZATIONS:
 
 Run the following command to minimize the holo structures:
 
@@ -463,7 +463,7 @@ It may take several minutes or an hour. This command goes into each of the ancho
 It's worth it to load the PRMTOP (found in your trypsin_project_directory as /anchor_*/md/building/holo.prmtop) and minimization DCD files into VMD to observe that all went according to plan. The number of frames found in the DCD files are determined by the input file.
 
 
-#### <a name="section3.2"></a>TEMPERATURE EQUILIBRATIONS:
+#### <a name="section3.2"></a> 3.2 TEMPERATURE EQUILIBRATIONS:
 
 
 Now that the minimizations are complete, we want to heat up the solvent slowly and then let it slowly cool to allow the waters to arrange themselves and relax around the ligand and receptor. 
@@ -482,7 +482,7 @@ SEEKR Tutorial - How to prepare a job
                 for {set i 1} {$i <= 13} {incr i} {mol addfile temp_equil$i.dcd}
 
 
-#### <a name="section3.3"></a>ENSEMBLE EQUILIBRATIONS (Umbrella Sampling):
+#### <a name="section3.3"></a> 3.3 ENSEMBLE EQUILIBRATIONS (Umbrella Sampling):
 
 Back up the filetree until you are above the trypsin_project_directory. Enter the following command to create a tarball:
 
@@ -652,7 +652,7 @@ This will print out a series of information about each of the anchors, and the n
 Of course, you might use a different anchor index. You will need to enter the ens_equil/ directory again, find the submission file named something like: "ens_equil256_2.submit", modify any parameters, and then submit it using sbatch.
 
 
-#### <a name="section3.4"></a> FWD REV STAGE:
+#### <a name="section3.4"></a> 3.4 FWD REV STAGE:
 
 **Note: This tutorial is currently written to reflect the commands you would execute while ssh'd into your own Stampede account from TACC.**
 
@@ -731,12 +731,12 @@ Submit the jobs using the following command:
 The job will run for up to 12 hours. You can check on the job the same way using the 'showq -u' or 'qstat' commands.
 
 ====================================================
-## <a name="section4.0"></a> BD STAGE: 
+## <a name="section4.0"></a> 4. BD STAGE: 
 ====================================================
 
 This stage can be run independantly of any of the MD stages, and it can fill time during the supercomputer simulations of the previous sections.
 
-#### <a name="section4.1"></a>bd_top
+#### <a name="section4.1"></a> 4.1 bd_top
 
 BD is run starting from both the b-surface, and also the outermost milestone(s). We need to start with the b-surface, because the starting distribution on the outermost milestone(s) will be determined from this. From the trypsin system root directory, 'cd' into the directory named 'b_surface'. Open 'input.xml' to make sure that the parameters are OK (For instance, make sure that the Debye length and dielectric values are good). From here, run the BrownDye program 'bd_top' on the input file.
 
@@ -744,7 +744,7 @@ BD is run starting from both the b-surface, and also the outermost milestone(s).
 
 This will generate all the auxiliary files needed to run Brownian Dynamics simulations starting from the b-surface. It's worth it to open the file that ends with '-simulation.xml', which contains all the simulation parameters, and it's worth it to check out and make sure that everything looks good from your point of view. It's probably also worth it to open the rxns.xml file, view which atom indeces are involved in the reactions, then highlight these atoms on the 'bd_receptor_dry_pqr.pqr' file in a molecular viewer like VMD. For instance, if the <atoms> tag in the rxns.xml file has the pair of atoms '3233' and '19', then we can load 'bd_receptor_dry_pqr.pqr' into VMD, then create a new representation with the selection "serial 3233" and draw using VDW to see where the atom is located. We can do the same with the ligand pqr file, and highlight atom number 19.
 
-#### <a name="section4.2"></a>B_surface simulation
+#### <a name="section4.2"></a> 4.2 B_surface simulation
 
 Now we can run the simulations:
 
@@ -775,11 +775,11 @@ When that is done, run the next script:
 This will descend into every directory of fhpd/ and pull out the results files, combining them together into a single results.xml file which will be used in the final analysis step of the system.
 
 
- ## <a name="section5.0"></a>ANALYSIS STAGE:
+ ## <a name="section5.0"></a> 5. ANALYSIS STAGE:
 
 This is the final stage of a SEEKR calculation. We will use the analyse.py program included with SEEKR. To familiarize yourself with the input of this script, run the following command:
 
-#### <a name="section5.1"></a>Running Analyze.py
+#### <a name="section5.1"></a> 5.1 Running Analyze.py
 
                 python analyze.py -h
 
