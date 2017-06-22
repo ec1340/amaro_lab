@@ -184,6 +184,10 @@ Now we need to choose where to place the ligand on each milestone.
 
 In the SEEKR/tools/setup direcory, there should be a script called 'moduseful.tcl'. In the tkconsole window, type "source /path/to/moduseful.tcl". Then run the following command: 'eye_vec "-1.536, 13.860, 16.540"'.(These are the coordinates for the center of binding site). The script should draw a thin line running from the binding site to where your eye was on the screen. Rotate the molecule to see the line. In order to obtain a good result for this vector, you will want to rotate your view in VMD so that you can see directly into the binding pocket. You can use the above command to draw another line, note the values for the vector. Don't worry about the magnitude of this line, SEEKR will automatically normalize it.
 
+
+!Vector](SEEKR-tutorial-files/seekr_tut_15.png?raw=true "Section 1.5a")
+
+
 Alternatively, on the VMD website, there is a page that contains all the scripts (http://www.ks.uiuc.edu/Research/vmd/script_library/). Download the script called 'eye_line', though some modifications will be needed to make it return the vector from the atom selection to your eye.
 
 **In my case, it was '4.336 203.9 99.89'**
