@@ -50,9 +50,15 @@ In TEMPLATE.seekr, you need to replace all the values labeled with the value "SO
 
 We will go through one by one to change them to desired values:
 
-![Set Project Details](seekr_tut_media/seekr_tut_1.png?raw=true "Section 1.1")
+
 
 #### <a name="section1.1"></a>1.1 Set Project details
+
+
+![Set Project Details](SEEKR-tutorial-files/seekr_tut_1.png?raw=true "Section 1.1")
+
+
+
 
         - set 'project_name' to 'tryp'
         
