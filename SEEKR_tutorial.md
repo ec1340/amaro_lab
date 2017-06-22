@@ -783,7 +783,9 @@ When that is done, run the next script:
 This will descend into every directory of fhpd/ and pull out the results files, combining them together into a single results.xml file which will be used in the final analysis step of the system.
 
 
+====================================================
  ## <a name="section5.0"></a> 5. ANALYSIS STAGE:
+====================================================
 
 This is the final stage of a SEEKR calculation. We will use the analyse.py program included with SEEKR. To familiarize yourself with the input of this script, run the following command:
 
