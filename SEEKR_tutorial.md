@@ -15,7 +15,7 @@
 - [1.8 BD Parameters](#section1.8)
 - [1.9 APBS Parameters](#section1.9)
 
-#### [2. Run SEEKR](#section2.0)
+#### [2. Running SEEKR](#section2.0)
 - [2.1 Running seekr.py](#section2.1)
 - [2.2 Anchor notation](#section2.2)
 
@@ -25,11 +25,11 @@
 - [3.3 Ensemble Equilbration (Umbrella Sampling)](#section3.3)
 - [3.4 Forward Reverse Stage](#section3.4)
 
-#### [4. BD Stage](#section4.0)
+#### [4. Running the BD](#section4.0)
 - [4.1 bd_top](#section4.1)
 - [4.2 B_surface Simulation](#section4.2)
-- [4.3 Outer Milestone Simulations](#section4.3)
-- [4.4 Consolidation of Simulations](#section4.4)
+- [4.3 Outermost Milestone BD Simulation](#section4.3)
+- [4.4 Consolidation of BD Trajectories](#section4.4)
 
 #### [5. Analysis](#section5.0)
 - [5.1 Running Analyze.py](#section5.1)
@@ -408,7 +408,7 @@ Last, we will fill out details concerning the electrostatics calculations used i
 Now save the file as "trypsin.seekr".
 
 ====================================================
-## <a name="section2.0"></a>2. Run SEEKR
+## <a name="section2.0"></a>2. Runing SEEKR
 ====================================================
 
 #### <a name="section2.1"></a>2.1 Running seekr.py
@@ -731,7 +731,7 @@ Submit the jobs using the following command:
 The job will run for up to 12 hours. You can check on the job the same way using the 'showq -u' or 'qstat' commands.
 
 ====================================================
-## <a name="section4.0"></a> 4. BD STAGE: 
+## <a name="section4.0"></a> 4. Running the BD: 
 ====================================================
 
 This stage can be run independantly of any of the MD stages, and it can fill time during the supercomputer simulations of the previous sections.
@@ -754,7 +754,11 @@ Your '-simulation.xml' file may be named slightly differently from what is above
 
 Once the simulations are done (probably a couple of hours later), you can view the results by opening the 'results.xml' file in a text editor like vi or gedit. You can find the number of reactions in the <n> tag. The larger this number is, the better. Hopefully at least 100, but preferably thousands.
 
+
+#### <a name="section4.3"></a> 4.3 Outermost Milestone BD Simulation
+
 Now, we are going to run the BD simulations for the outermost milestone. 'cd' back one, then go into the outermost anchor (anchor 6). Go into the 'bd' directory this time. Unlike the b-surface simulation, where you run all your simulations from random places on the b-surface, this anchor will have all its BD simulations started from points where this milestone was crossed in the bd simulations. Therefore, there will be many many separate runs of BrownDye starting from different conformations.
+
 
 To do this, we must extract frames from the b-surface trajectories. Make sure you specified the 'empty_pqrxml_path' parameter in your SEEKR input file. There is a copy of 'empty.pqrxml' inside the SEEKR program directory. Run the following command:
 
@@ -762,11 +766,15 @@ To do this, we must extract frames from the b-surface trajectories. Make sure yo
 
 This will run for an hour or more, extracting structures from the last frames of the b-surface simulations. Once complete, you can look inside the trajs/ folder to see the output of the script. There will be a thousand ligand .pqr files, and a thousand .xml files that characterize additional information about the last frame of each of these trajectories. These .pqr files are technically called 'encounter complexes'. We won't be using the .xml files, but we will be using the .pqr files in later steps.
 
+
 So, inside the bd/ directory of anchor 6, run the following command: (NOTE TO SASHA AND BEN: Download the latest version of BrownDye to make sure that this works right.)
 
                 python make_fhpd.py
 
 This takes all of the encounter complexes that we made in the last step, and prepares and then runs a BD simulation for each of them. This calculation will take awhile, probably several hours. (**This took me several days with 16 cores with the increased dx map. We should probably suggest this on the supercomputer.)
+
+
+#### <a name="section4.4"></a> 4.4 Consolidation of BD trajectories
 
 When that is done, run the next script:
 
