@@ -55,8 +55,7 @@ We will go through one by one to change them to desired values:
 #### <a name="section1.1"></a>1.1 Set Project details
 
 
-![Set Project Details](SEEKR-tutorial-files/seekr_tut_1.png?raw=true "Section 1.1")
-
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_1.png?raw=true "Section 1.1")
 
 
 
@@ -85,21 +84,25 @@ We will go through one by one to change them to desired values:
 
 #### <a name="section1.2"></a>1.2 Set Program path information
 
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_2.png?raw=true "Section 1.2")
+
 *If these paths are already specified in something like a bashrc, you can skip this step...*
 
 These two are likely already aliased for Amarolab users:
         
-        - apbs_executable SOMETHING
-        
         - browndye_bin_dir SOMETHING # the path to the browndye bin
         
-        - inputgen_location /(your path)/src   
+        - inputgen_location /(your path)/src
+        
+        - apbs_executable SOMETHING
 
 - #for Amarolab users: /soft/pdb2pqr/latest/src -- this should already be defined as an environment variable!
 
 
 ### <a name="section1.3"></a>1.3 Ligand/Receptor Information
-        
+
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_3.png?raw=true "Section 1.3")
+
         - set 'lig_pdb_filename' to point to 'benzamidine.pdb' in the tutorial folder. 
 - Notice that this file is an ordinary pdb file of the ligand without any waters.
         
@@ -119,6 +122,8 @@ These two are likely already aliased for Amarolab users:
 - This is usually the same 'rec_dry_pdb_filename.pdb' structure, but has been run through a tool like PDB2PQR or has been written as a PQR file straight from the trajectory that 'rec_pdb_filename' came from.
 
 ### <a name="section1.4"></a>1.4 NAMD TCL script parameters
+
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_4.png?raw=true "Section 1.4")
 
         - set 'script_interval' to '5'. 
 - This determines the stride between timesteps that the milestoning.tcl script is evaluated by NAMD. Therefore, a value of '5' will cause the milestones and the system to be evaluated every five timesteps in the MD simulations.
@@ -145,6 +150,7 @@ These two are likely already aliased for Amarolab users:
 
 ### <a name="section1.5"></a>1.5 Active Site using milestones
 
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_5.png?raw=true "Section 1.5")
 
 Now we are going to edit the parameters for the binding site in trypsin. This will require us to find some parameters by sight.
 
@@ -200,6 +206,9 @@ NOTE: the radius lis option will override the increment option
 
 #### <a name="section1.6"></a> 1.6 Ligand Positions/Orientations
 
+
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_6.png?raw=true "Section 1.6")
+
 We have finished defining the binding site of Trypsin, now we are filling out details of the MD portion of the calculation
 
         - set 'hedron' to 'single'. This is a future feature concerning rotational milestones.
@@ -209,6 +218,9 @@ We have finished defining the binding site of Trypsin, now we are filling out de
 
 
 #### <a name="section1.7"></a> 1.7 MD Parameters
+
+
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_6.png?raw=true "Section 1.7")
 
         - set 'ff' to 'amber'.
 
@@ -260,6 +272,8 @@ This will create the necessary disulfide bonds for our system.
 
 #### MIN
 
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_8.png?raw=true "Section 1.7a")
+
 We will want to run minimizations, so set 'min' to 'True'
 
         - Set 'min_constrained' to the list: ['ligand','receptor']. 
@@ -272,6 +286,9 @@ We will want to run minimizations, so set 'min' to 'True'
         - Set 'min_ensemble' to 'nve'.
 
 #### TEMP_EQUIL
+
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_9.png?raw=true "Section 1.7b")
+
         - Set 'temp_equil' to 'True'. 
 - Temperature equilibrations heat up the solvent to allow the waters and ions to relax around the biomolecules. We ramp up the temperature and then let it fall back again.
 
@@ -290,6 +307,8 @@ We will want to run minimizations, so set 'min' to 'True'
         - Set 'temp_equil_ensemble' to 'nvt'. 
 
 #### ENS_EQUIL
+
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_10.png?raw=true "Section 1.7c")
 
         - Set 'ens_equil' to 'True'. 
 - This is whether we will run constrained runs for ensemble equilibrations (umbrella sampling) in order to generate the equilibrium distribution.
@@ -316,6 +335,8 @@ We will want to run minimizations, so set 'min' to 'True'
 
 #### FORWARD and REVERSAL
 
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_11.png?raw=true "Section 1.7d")
+
         - Set 'fwd_rev_ensemble' to 'nve'. Forward and reverse phases should be run in the NVE ensemble.
 
         - Set 'fwd_rev_type' to 'protein'. 
@@ -338,6 +359,11 @@ We will want to run minimizations, so set 'min' to 'True'
 
 
 #### <a name="section1.8"></a> 1.8 BD Parameters
+
+
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_12.png?raw=true "Section 1.8")
+
+
 Now we will fill out details concerning the BD portion of the simulation
 
         - Set 'bd_threads' to '10'. 
@@ -349,6 +375,10 @@ Now we will fill out details concerning the BD portion of the simulation
         - Set 'bd_rec_pqr_filename' to 'tryp_dry_lastframe.pqr'.
 
 #### <a name="section1.9"></a> 1.9 APBS Parameters
+
+
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_13.png?raw=true "Section 1.9")
+
 
 Last, we will fill out details concerning the electrostatics calculations used in the BD simulations. We are using a 20mM NaCl solution, and the nonlinear PBE for the calculations.
 
