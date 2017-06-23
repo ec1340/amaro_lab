@@ -57,7 +57,6 @@ We will go through one by one to change them to desired values:
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_1.png?raw=true "Section 1.1")
 
 
-
         - set 'project_name' to 'tryp'
         
         - set 'root_dir' to a directory to construct the file tree. 
@@ -479,18 +478,18 @@ This will run the temperature equilibrations, it should finish within an hour or
 To save time loading all of the DCD files into VMD, use the following command in the VMD TkConsole after loading the /anchor_*/md/building/holo.parm7  found in trypsin_project_directory and opening vmd in the temp_equil directory:
 SEEKR Tutorial - How to prepare a job
 
-                for {set i 1} {$i <= 13} {incr i} {mol addfile temp_equil$i.dcd}
+        for {set i 1} {$i <= 13} {incr i} {mol addfile temp_equil$i.dcd}
 
 
 #### <a name="section3.3"></a> 3.3 ENSEMBLE EQUILIBRATIONS (Umbrella Sampling):
 
 Back up the filetree until you are above the trypsin_project_directory. Enter the following command to create a tarball:
 
-                tar -czf tryp_pre_equil.tgz trypsin_project_directory/
+        tar -czf tryp_pre_equil.tgz trypsin_project_directory/
 
 Once that command is done, use scp or sftp to transfer to your scratch directory on Stampede and unpack using the following command:
 
-                tar -xzf tryp_pre_equil.tgz
+        tar -xzf tryp_pre_equil.tgz
 
 Calculations in this section are typically performed on a supercomputer. This
 tutorial assumes you will be running on the TACC Stampede supercomputer.
@@ -503,17 +502,17 @@ A tarball of the NAMD source code is located in the SEEKR/namd directory.
 
 Create a directory named, say, namd_compile. Then 'cd' into it. From here, run:
 
-                cp SEEKR/namd/NAMD_CVS-2015-11-02_Source.tar.gz .
+        cp SEEKR/namd/NAMD_CVS-2015-11-02_Source.tar.gz .
 
 Then unpack it with tar -xzf NAMD_CVS-2015-11-02_Source.tar.gz
 
 Now you will copy some code files from the same folder into your source folder
 using these commands:
 
-                cp /(path to)/SEEKR/namd/gauss.C NAMD_CVS-2015-11-02_Source/src/.
-                cp /(path to)/SEEKR/namd/eigeng.c NAMD_CVS-2015-11-02_Source/src/.
-                cp /(path to)/SEEKR/namd/namd/TclCommands.C NAMD_CVS-2015-11-02_Source/src/.
-                cp /(path to)/SEEKR/namd/TclVec.C NAMD_CVS-2015-11-02_Source/src/.
+        cp /(path to)/SEEKR/namd/gauss.C NAMD_CVS-2015-11-02_Source/src/.
+        cp /(path to)/SEEKR/namd/eigeng.c NAMD_CVS-2015-11-02_Source/src/.
+        cp /(path to)/SEEKR/namd/namd/TclCommands.C NAMD_CVS-2015-11-02_Source/src/.
+        cp /(path to)/SEEKR/namd/TclVec.C NAMD_CVS-2015-11-02_Source/src/.
 
 This will overwrite the existing TclVec.C and TclCommands.C source files
 because SEEKR requires adaptations of the NAMD code. Trust us... we know what
@@ -522,25 +521,25 @@ we're doing ;)
 Next, copy over the script that you will use to build charmrun, which NAMD
 needs to run on a parallel system like Stampede. Do so using this command:
 
-                cp /(path to)/SEEKR/namd/build_namd.bash ./
+        cp /(path to)/SEEKR/namd/build_namd.bash ./
 
 View the script if you want, and modify the variables at the top as you see
 fit. The $WORKDIR variable is where the program is downloaded and compiled.
 Then the $HOMEDIR variable is actually where the final program will be placed.
 Run using this command:
 
-                bash build_namd.bash
+        bash build_namd.bash
 
 This script will probably run for a long time (about an hour). In fact, if it
 stops instantly, check the output for errors because it probably didn't work,
 even if it says it worked. If you have trouble, try copying the charm-6.7.0
 tarball from the SEEKR/namd directory:
 
-                cp /(path to)/SEEKR/namd/charm-6.7.0.tar $WORK/charm-6.7.0-verbs-linux-x86_64-iccstatic
+        cp /(path to)/SEEKR/namd/charm-6.7.0.tar $WORK/charm-6.7.0-verbs-linux-x86_64-iccstatic
 
 Then run this command:
 
-                tar -xf $WORK/charm-6.7.0-verbs-linux-x86_64-iccstatic/charm-6.7.0.tar
+        tar -xf $WORK/charm-6.7.0-verbs-linux-x86_64-iccstatic/charm-6.7.0.tar
 
 Then go into the build_namd.bash script and remove or comment out the line that begins with 'wget'. Then re-run the script.
 
@@ -549,38 +548,38 @@ detailed instructions here.
 
 The following commands download and install TCL and FFTW libraries:
   
-                (cd to NAMD_2.10_Source if you're not already there)
-                wget http://www.ks.uiuc.edu/Research/namd/libraries/fftw-linux-x86_64.tar.gz
-                tar xzf fftw-linux-x86_64.tar.gz
-                mv linux-x86_64 fftw
-                wget http://www.ks.uiuc.edu/Research/namd/libraries/tcl8.5.9-linux-x86_64.tar.gz
-                wget http://www.ks.uiuc.edu/Research/namd/libraries/tcl8.5.9-linux-x86_64-threaded.tar.gz
-                tar xzf tcl8.5.9-linux-x86_64.tar.gz
-                tar xzf tcl8.5.9-linux-x86_64-threaded.tar.gz
-                mv tcl8.5.9-linux-x86_64 tcl
-                mv tcl8.5.9-linux-x86_64-threaded tcl-threaded
+        (cd to NAMD_2.10_Source if you're not already there)
+        wget http://www.ks.uiuc.edu/Research/namd/libraries/fftw-linux-x86_64.tar.gz
+        tar xzf fftw-linux-x86_64.tar.gz
+        mv linux-x86_64 fftw
+        wget http://www.ks.uiuc.edu/Research/namd/libraries/tcl8.5.9-linux-x86_64.tar.gz
+        wget http://www.ks.uiuc.edu/Research/namd/libraries/tcl8.5.9-linux-x86_64-threaded.tar.gz
+        tar xzf tcl8.5.9-linux-x86_64.tar.gz
+        tar xzf tcl8.5.9-linux-x86_64-threaded.tar.gz
+        mv tcl8.5.9-linux-x86_64 tcl
+        mv tcl8.5.9-linux-x86_64-threaded tcl-threaded
 
 Edit the Make.charm configuration file:
   
-                vi Make.charm
+        vi Make.charm
 
 Once inside, set CHARMBASE to full path to charm. In our case, this is the
 directory: ${HOME}/charm-6.7.0
 
-                CHARMBASE = ${HOME}/charm-6.7.0
+       CHARMBASE = ${HOME}/charm-6.7.0
 
 Set up build directory and compile:
                 
-                ./config Linux-x86_64-g++ --charm-arch verbs-linux-x86_64-iccstatic
-                cd Linux-x86_64-g++
-                make
+       ./config Linux-x86_64-g++ --charm-arch verbs-linux-x86_64-iccstatic
+       cd Linux-x86_64-g++
+       make
 
 This last step is likely to take a long time. (about 15 minutes)
 
 Copy the mpiexec program from the namd directory to a location of your choice.
 Your home directory is fine:
 
-                cp /(path to)/SEEKR/namd/mpiexec $HOME
+      cp /(path to)/SEEKR/namd/mpiexec $HOME
 
 The program that we use to control jobs on the supercomputer is called control.py. Make sure that control.py exists in your home directory on Stampede.
 
@@ -590,10 +589,10 @@ To do this, in your home directory, edit the .bashrc file: "vi .bashrc"
  
 add the following lines, changing the path to reflect where the special build is installed
                 
-                export NAMD_SEEKR="/path/to/new/compile/NAMD_CVS-2015-11-02_Source/Linux-x86_64-g++/namd2"
-                export CHARM_SEEKR="/path/to/new/compile/NAMD_CVS-2015-11-02_Source/Linux-x86_64-g++/charmrun"
-                export MPIEXEC="/path/to/mpiexec"
-                export INPUTGEN="/path/to/inputgen.py"
+        export NAMD_SEEKR="/path/to/new/compile/NAMD_CVS-2015-11-02_Source/Linux-x86_64-g++/namd2"
+        export CHARM_SEEKR="/path/to/new/compile/NAMD_CVS-2015-11-02_Source/Linux-x86_64-g++/charmrun"
+        export MPIEXEC="/path/to/mpiexec"
+        export INPUTGEN="/path/to/inputgen.py"
 
 
 #### Running Ensemble Equilibrations:
@@ -602,7 +601,7 @@ Now, cd into the project directory you just unpacked on Stampede. I like to test
 
 To prepare the anchor files for umbrella sampling, determine the lowest anchor number (in this case, it's four), type the following command:
 
-                python ~/control.py submit 4 ens_equil 
+        python ~/control.py submit 4 ens_equil 
 
 Even though the output says that it's executing an sbatch command, it actually is not beacuse Stampede does not allow this. It is always a good idea to check that it did not submit, though, by typing 
 "showq -u"
@@ -611,7 +610,7 @@ We will have to submit it manually later.
 
 The control.py program takes commands according to the following template:
 
-                python ~/control.py action anchor stage
+        python ~/control.py action anchor stage
 
 The "action" category can take several possible arguments:
 
@@ -636,18 +635,18 @@ You can also change other information about the submission at this time if you d
 
 Now submit the umbrella sampling job:
 
-                sbatch ens_equil256_1.submit
+        sbatch ens_equil256_1.submit
 
 Of course, if your submission script has a different name, you'll have to change the command above. Assuming that all is well with your stampede allocation and the submission file, the job should be submitted to the queue. You can check on it by typing: "showq -u". 
 
 
 Your job will only run for 10 minutes, but a true umbrella sampling job should run for much more time. In fact, you will likely need to run several different submissions. To resubmit the jobs, the "resubmit" argument for control.py can be used. Use the following command to see the progress of your umbrella sampling:
 
-                python ~/control.py check all ens_equil
+        python ~/control.py check all ens_equil
 
 This will print out a series of information about each of the anchors, and the number of timesteps that have been completed for the umbrella sampling. If the "last timestep" output is less than the number of timesteps wanted for the umbrella sampling, you would use a command similar to the following:
 
-                python ~/control.py resubmit 4 ens_equil
+        python ~/control.py resubmit 4 ens_equil
 
 Of course, you might use a different anchor index. You will need to enter the ens_equil/ directory again, find the submission file named something like: "ens_equil256_2.submit", modify any parameters, and then submit it using sbatch.
 
@@ -703,7 +702,7 @@ If you have no access to an Amaro Lab computer, you may have to run the umbrella
 
 (Optional) If you have it installed on Stampede, use the 'catdcd' command to see how long the trajectories are. However, if you don't have catdcd on Stampede, it's difficult to use the catdcd command. Download catdcd, place it in your work directory on Stampede, and edit your .bashrc file in your home directory using vim or vi. Add this line in your .bashrc file:
 
-                alias catdcd="$WORK/catdcd"
+        alias catdcd="$WORK/catdcd"
 
 Once you have edited and saved your .bashrc file, source it so the changes can be implemented with the command done within your home directory:
 
@@ -711,14 +710,14 @@ source .bashrc
 
 Then use the following command:
 
-                catdcd anchor_3*/md/ens_equil/ens_equil_0_*.dcd
+        catdcd anchor_3*/md/ens_equil/ens_equil_0_*.dcd
 
 This will show you how many frames are in each trajectory file. This command was just applied to anchor 3, try it with the other anchors.
 
 Now, it's time to submit the forward-reverse stage job. Run the following command using control.py:
 **From the trypsin_project_directory
 
-                python /path/to/SEEKR/bin/control.py -p 64 -nr 16 -t 12:00:00 submit all fwd_rev
+        python /path/to/SEEKR/bin/control.py -p 64 -nr 16 -t 12:00:00 submit all fwd_rev
 
 Of course, replace /path/to/control.py with the path to the control.py SEEKR program. The '-p' option will request 64 processors. If you find that you can perform calculations more efficiently with a different number of processors, you can change this number. The '-nr' option defines the number of replicas, that is, the number of concurrent fwd-rev stage jobs running at once. The number of processors per replica is equal to (number of processors / number of replicas). The '-t' option specifies the amount of time to run in hours:minutes:seconds. Run control.py with the '-h' option to see additional arguments that are available.
 
@@ -726,7 +725,7 @@ Change directory into one of the anchors, say anchor 4. Go through the 'md' and 
 
 Submit the jobs using the following command:
 
-                sbatch fwd_rev64_1.submit
+       sbatch fwd_rev64_1.submit
 
 The job will run for up to 12 hours. You can check on the job the same way using the 'showq -u' or 'qstat' commands.
 
@@ -740,7 +739,7 @@ This stage can be run independantly of any of the MD stages, and it can fill tim
 
 BD is run starting from both the b-surface, and also the outermost milestone(s). We need to start with the b-surface, because the starting distribution on the outermost milestone(s) will be determined from this. From the trypsin system root directory, 'cd' into the directory named 'b_surface'. Open 'input.xml' to make sure that the parameters are OK (For instance, make sure that the Debye length and dielectric values are good). From here, run the BrownDye program 'bd_top' on the input file.
 
-                bd_top input.xml
+        bd_top input.xml
 
 This will generate all the auxiliary files needed to run Brownian Dynamics simulations starting from the b-surface. It's worth it to open the file that ends with '-simulation.xml', which contains all the simulation parameters, and it's worth it to check out and make sure that everything looks good from your point of view. It's probably also worth it to open the rxns.xml file, view which atom indeces are involved in the reactions, then highlight these atoms on the 'bd_receptor_dry_pqr.pqr' file in a molecular viewer like VMD. For instance, if the <atoms> tag in the rxns.xml file has the pair of atoms '3233' and '19', then we can load 'bd_receptor_dry_pqr.pqr' into VMD, then create a new representation with the selection "serial 3233" and draw using VDW to see where the atom is located. We can do the same with the ligand pqr file, and highlight atom number 19.
 
@@ -748,7 +747,7 @@ This will generate all the auxiliary files needed to run Brownian Dynamics simul
 
 Now we can run the simulations:
 
-                nam_simulation bd_receptor_dry_pqr-0_0_site1_30.1_33.4_27.8_0-simulation.xml
+        nam_simulation bd_receptor_dry_pqr-0_0_site1_30.1_33.4_27.8_0-simulation.xml
 
 Your '-simulation.xml' file may be named slightly differently from what is above.
 
@@ -762,14 +761,14 @@ Now, we are going to run the BD simulations for the outermost milestone. 'cd' ba
 
 To do this, we must extract frames from the b-surface trajectories. Make sure you specified the 'empty_pqrxml_path' parameter in your SEEKR input file. There is a copy of 'empty.pqrxml' inside the SEEKR program directory. Run the following command:
 
-                python extract_bd_frames.py
+        python extract_bd_frames.py
 
 This will run for an hour or more, extracting structures from the last frames of the b-surface simulations. Once complete, you can look inside the trajs/ folder to see the output of the script. There will be a thousand ligand .pqr files, and a thousand .xml files that characterize additional information about the last frame of each of these trajectories. These .pqr files are technically called 'encounter complexes'. We won't be using the .xml files, but we will be using the .pqr files in later steps.
 
 
 So, inside the bd/ directory of anchor 6, run the following command: (NOTE TO SASHA AND BEN: Download the latest version of BrownDye to make sure that this works right.)
 
-                python make_fhpd.py
+        python make_fhpd.py
 
 This takes all of the encounter complexes that we made in the last step, and prepares and then runs a BD simulation for each of them. This calculation will take awhile, probably several hours. (**This took me several days with 16 cores with the increased dx map. We should probably suggest this on the supercomputer.)
 
@@ -778,7 +777,8 @@ This takes all of the encounter complexes that we made in the last step, and pre
 
 When that is done, run the next script:
 
-                python fhpd_consolidate.py
+
+        python fhpd_consolidate.py
 
 This will descend into every directory of fhpd/ and pull out the results files, combining them together into a single results.xml file which will be used in the final analysis step of the system.
 
@@ -791,7 +791,7 @@ This is the final stage of a SEEKR calculation. We will use the analyse.py progr
 
 #### <a name="section5.1"></a> 5.1 Running Analyze.py
 
-                python analyze.py -h
+        python analyze.py -h
 
 This will print out a help file for this analyze.py and can give a hint about how to run it.
 
@@ -805,13 +805,13 @@ Analyze.py is likely to run for several hours, depending on the '--skip' and '--
 
 The following command will run analyze.py for an on rate calculation, sampling 100 error matrices, with the zeroth anchor as the sink state:
 
-                python /path/to/seekr/analyze.py -m milestones.xml -b 0 --skip 100 --number 1000 --on
+        python /path/to/seekr/analyze.py -m milestones.xml -b 0 --skip 100 --number 1000 --on
 
 When complete, it will print out a k-on and other useful information.
 
 To see the free energy profile, run the following command:
 
-                python ~/seekr/analyze.py --free_energy -m milestones.xml -b 0 --skip 100 --number 1000
+        python ~/seekr/analyze.py --free_energy -m milestones.xml -b 0 --skip 100 --number 1000
 
 Use the -h option of analyze.py for help and to wiew all the possible commands.
 
