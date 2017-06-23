@@ -791,7 +791,7 @@ This will descend into every directory of fhpd/ and pull out the results files, 
 
 ___
 
- ## <a name="section5.0"></a> 5. ANALYSIS STAGE:
+ ## <a name="section5.0"></a> 5. Analysis:
 
 ___
 
