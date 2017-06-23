@@ -1,9 +1,5 @@
 ## SEEKR Tutorial - How to prepare a job
 
-![10.1021/acs.jpcb.6b09388](SEEKR-tutorial-files/seekr_lit.png?raw=true "SEEKR")
-
-
-
 
 #### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine
 
@@ -38,10 +34,11 @@
 #### [5. Analysis](#section5.0)
 - [5.1 Running Analyze.py](#section5.1)
 
-
+___
 
 ## <a name="section1.0"></a>1. Setting up the configuration file (.seekr)
 
+___
 
 First, ensure that you have installed SEEKR and all its required software (see README for dependencies). It is also recommended that you use the README/manual to familiarize yourself with the parameters that SEEKR uses. This tutorial also assumes that you are proficient in VMD.
 
@@ -410,10 +407,11 @@ Last, we will fill out details concerning the electrostatics calculations used i
 
 Now save the file as "trypsin.seekr".
 
-====================================================
-## <a name="section2.0"></a>2. Runing SEEKR
-====================================================
----
+___
+
+## <a name="section2.0"></a>2. Running SEEKR
+
+___
 
 #### <a name="section2.1"></a>2.1 Running seekr.py
 
@@ -448,9 +446,11 @@ Back up into the "md" folder. The other directories will be useful for running p
 
 Now back up two directories and enter the "b_surface" directory. Inside here are a number of files that will be used for BD simulations starting at this anchor.
 
-====================================================
+___
+
 ## <a name="section3.0"></a> 3. Running the MD
-====================================================
+
+___
 
 Back up a directory so that you can see all the anchor folders.
 
@@ -734,10 +734,11 @@ Submit the jobs using the following command:
 
 The job will run for up to 12 hours. You can check on the job the same way using the 'showq -u' or 'qstat' commands.
 
-====================================================
+___
+
 ## <a name="section4.0"></a> 4. Running the BD: 
-====================================================
----
+
+___
 
 This stage can be run independantly of any of the MD stages, and it can fill time during the supercomputer simulations of the previous sections.
 
@@ -788,11 +789,11 @@ When that is done, run the next script:
 
 This will descend into every directory of fhpd/ and pull out the results files, combining them together into a single results.xml file which will be used in the final analysis step of the system.
 
+___
 
-====================================================
  ## <a name="section5.0"></a> 5. ANALYSIS STAGE:
-====================================================
----
+
+___
 
 This is the final stage of a SEEKR calculation. We will use the analyse.py program included with SEEKR. To familiarize yourself with the input of this script, run the following command:
 
