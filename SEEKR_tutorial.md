@@ -1,5 +1,9 @@
 ## SEEKR Tutorial - How to prepare a job
 
+![10.1021/acs.jpcb.6b09388](SEEKR-tutorial-files/seekr_lit.png?raw=true "SEEKR")
+
+
+
 
 #### For this tutorial, we will be attempting to prepare a k-on calculation for the protein trypsin and its natural substrate benzamidine
 
@@ -409,6 +413,7 @@ Now save the file as "trypsin.seekr".
 ====================================================
 ## <a name="section2.0"></a>2. Runing SEEKR
 ====================================================
+---
 
 #### <a name="section2.1"></a>2.1 Running seekr.py
 
@@ -732,6 +737,7 @@ The job will run for up to 12 hours. You can check on the job the same way using
 ====================================================
 ## <a name="section4.0"></a> 4. Running the BD: 
 ====================================================
+---
 
 This stage can be run independantly of any of the MD stages, and it can fill time during the supercomputer simulations of the previous sections.
 
@@ -786,6 +792,7 @@ This will descend into every directory of fhpd/ and pull out the results files, 
 ====================================================
  ## <a name="section5.0"></a> 5. ANALYSIS STAGE:
 ====================================================
+---
 
 This is the final stage of a SEEKR calculation. We will use the analyse.py program included with SEEKR. To familiarize yourself with the input of this script, run the following command:
 
