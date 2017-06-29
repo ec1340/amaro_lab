@@ -178,19 +178,39 @@ Within the site1 block, set 'anchor_function' to 'concentric_spheres_atom'. This
 
 ALternatively, you can manually specify
 
-In VMD, make the 'tryp_wet_lastframe.pdb' file be the top molecule. In the tkconsole window, type: *set site [atomselect top "name CA and resid 172 173 174 177 191 193 194 196 202 206 197"]*
+In VMD, make the 'tryp_wet_lastframe.pdb' file be the top molecule. 
+
+
+In the tkconsole window, type: *set site [atomselect top "name CA and resid 172 173 174 177 191 193 194 196 202 206 197"]*
+
+
 Then type: *measure center $site*
+
+
 Take note of the resulting coordinates. They should be approximately: "-1.536, 13.860, 16.540"
 
         - Set 'x' to be '-1.536'. Set 'y' to be '13.860'. Set 'z' to be '16.540'.
 
-Now, in the tkconsole window, type: *site get serial*. The following numbers should be returned: '2479 2490 2500 2536 2719 2746 2770 2788 2795 2868 2927'.
+Now, in the tkconsole window, type: *$site get serial*
+
+The following numbers should be returned: '2479 2490 2500 2536 2719 2746 2770 2788 2795 2868 2927'.
 
         - set 'atomid' to be '2479 2490 2500 2536 2719 2746 2770 2788 2795 2868 2927'
 
 Now we need to choose where to place the ligand on each milestone.
 
-In the SEEKR/tools/setup direcory, there should be a script called 'moduseful.tcl'. In the tkconsole window, type "source /path/to/moduseful.tcl". Then run the following command: *eye_vec "-1.536 13.860 16.540"*.(These are the coordinates for the center of binding site). The script should draw a thin line running from the binding site to where your eye was on the screen. Rotate the molecule to see the line. In order to obtain a good result for this vector, you will want to rotate your view in VMD so that you can see directly into the binding pocket. You can use the above command to draw another line, note the values for the vector. Don't worry about the magnitude of this line, SEEKR will automatically normalize it.
+In the SEEKR/tools/setup direcory, there should be a script called 'moduseful.tcl'.
+
+
+In the tkconsole window, type "source /path/to/moduseful.tcl". 
+
+
+Then run the following command: *eye_vec "-1.536 13.860 16.540"*
+
+
+![Tcl console](SEEKR-tutorial-files/seekr_tut_20.png?raw=true "Section 1.5a")
+
+These are the coordinates for the center of binding site. The script should draw a thin line running from the binding site to where your eye was on the screen. Rotate the molecule to see the line. In order to obtain a good result for this vector, you will want to rotate your view in VMD so that you can see directly into the binding pocket. You can use the above command to draw another line, note the values for the vector. Don't worry about the magnitude of this line, SEEKR will automatically normalize it.
 
 
 ![Vector](SEEKR-tutorial-files/seekr_tut_15.png?raw=true "Section 1.5a")
