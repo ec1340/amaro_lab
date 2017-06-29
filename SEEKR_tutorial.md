@@ -34,6 +34,9 @@
 #### [5. Analysis](#section5.0)
 - [5.1 Running Analyze.py](#section5.1)
 
+
+#### [6.Troubleshooting)(#section6.0)
+
 ___
 
 ## <a name="section1.0"></a>1. Setting up the configuration file (.seekr)
@@ -223,11 +226,10 @@ We have finished defining the binding site of Trypsin, now we are filling out de
 #### <a name="section1.7"></a> 1.7 MD Parameters
 
 
-![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_6.png?raw=true "Section 1.7")
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_7.png?raw=true "Section 1.7")
 
         - set 'ff' to 'amber'.
 
-        - set 'water model' to 'tip4p'
         
 #### LEAP
 
@@ -766,7 +768,9 @@ Once the simulations are done (probably a couple of hours later), you can view t
 Now, we are going to run the BD simulations for the outermost milestone. 'cd' back one, then go into the outermost anchor (anchor 6). Go into the 'bd' directory this time. Unlike the b-surface simulation, where you run all your simulations from random places on the b-surface, this anchor will have all its BD simulations started from points where this milestone was crossed in the bd simulations. Therefore, there will be many many separate runs of BrownDye starting from different conformations.
 
 
-To do this, we must extract frames from the b-surface trajectories. Make sure you specified the 'empty_pqrxml_path' parameter in your SEEKR input file. There is a copy of 'empty.pqrxml' inside the SEEKR program directory. Run the following command:
+To do this, we must extract frames from the b-surface trajectories. Make sure you specified the 'empty_pqrxml_path' parameter in your SEEKR input file. If no path has been specified, the default path is *./empty.pqrxml* There is a copy of 'empty.pqrxml' inside the SEEKR program directory.
+
+Run the following command:
 
         python extract_bd_frames.py
 
@@ -777,8 +781,7 @@ So, inside the bd/ directory of anchor 6, run the following command: (NOTE TO SA
 
         python make_fhpd.py
 
-This takes all of the encounter complexes that we made in the last step, and prepares and then runs a BD simulation for each of them. This calculation will take awhile, probably several hours. (**This took me several days with 16 cores with the increased dx map. We should probably suggest this on the supercomputer.)
-
+This takes all of the encounter complexes that we made in the last step, and prepares and then runs a BD simulation for each of them. This calculation will take awhile, probably several hours. (**This took me several days with 16 cores with the increased dx map. We should probably suggest this on the supercomputer)
 
 #### <a name="section4.4"></a> 4.4 Consolidation of BD trajectories
 
@@ -824,3 +827,14 @@ To see the free energy profile, run the following command:
 Use the -h option of analyze.py for help and to wiew all the possible commands.
 
 For further analysis, there is a collection of scripts in the SEEKR/tools/analysis/ directory.
+
+
+
+
+ ## <a name="section6.0"></a> 6.Troubleshooting:
+
+
+#### Section 1:
+
+#### Section 2:
+- 
