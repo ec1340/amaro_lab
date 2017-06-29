@@ -57,6 +57,8 @@ We will go through one by one to change them to desired values:
 
 #### <a name="section1.1"></a>1.1 Set Project details
 
+---
+
 
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_1.png?raw=true "Section 1.1")
 
@@ -86,6 +88,8 @@ We will go through one by one to change them to desired values:
 
 #### <a name="section1.2"></a>1.2 Set Program path information
 
+---
+
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_2.png?raw=true "Section 1.2")
 
 *If these paths are already specified in something like a bashrc, you can skip this step...*
@@ -102,6 +106,8 @@ These two are likely already aliased for Amarolab users:
 
 
 #### <a name="section1.3"></a>1.3 Ligand/Receptor Information
+
+---
 
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_3.png?raw=true "Section 1.3")
 
@@ -124,6 +130,8 @@ These two are likely already aliased for Amarolab users:
 - This is usually the same 'rec_dry_pdb_filename.pdb' structure, but has been run through a tool like PDB2PQR or has been written as a PQR file straight from the trajectory that 'rec_pdb_filename' came from.
 
 #### <a name="section1.4"></a>1.4 NAMD TCL script parameters
+
+---
 
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_4.png?raw=true "Section 1.4")
 
@@ -152,6 +160,8 @@ These two are likely already aliased for Amarolab users:
 
 #### <a name="section1.5"></a>1.5 Active Site using milestones
 
+---
+
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_5.png?raw=true "Section 1.5")
 
 Now we are going to edit the parameters for the binding site in trypsin. This will require us to find some parameters by sight.
@@ -176,7 +186,7 @@ Within the site1 block, set 'anchor_function' to 'concentric_spheres_atom'. This
         - set 'r_low' to '2.0'. 
 - This is the radius of the innermost milestone in Angstroms.
 
-ALternatively, you can manually specify
+---
 
 In VMD, make the 'tryp_wet_lastframe.pdb' file be the top molecule. 
 
@@ -207,8 +217,12 @@ In the tkconsole window, type "source /path/to/moduseful.tcl".
 
 Then run the following command: *eye_vec "-1.536 13.860 16.540"*
 
+---
+*Tcl console*
 
 ![Tcl console](SEEKR-tutorial-files/seekr_tut_20.png?raw=true "Section 1.5a")
+
+---
 
 These are the coordinates for the center of binding site. The script should draw a thin line running from the binding site to where your eye was on the screen. Rotate the molecule to see the line. In order to obtain a good result for this vector, you will want to rotate your view in VMD so that you can see directly into the binding pocket. You can use the above command to draw another line, note the values for the vector. Don't worry about the magnitude of this line, SEEKR will automatically normalize it.
 
@@ -225,6 +239,7 @@ Alternatively, on the VMD website, there is a page that contains all the scripts
 - The parameters 'startvx', 'startvy', and 'startvz' allow more control over how the ligand is arranged along the milestones. This vector points from the origin to the location on the first milestone where to start the (vx, vy, vz) vector. If unsure how to modify this, then make 'startvx', 'startvy', and 'startvz' to be the same as 'vx', 'vy', and 'vz'.
 
         - Set the 'increment' value to be '2.0'. 
+        
 - This is the spacing, in Angstroms, between the milestones.
 
 Alternatively, you can manually specify the placement of milestones using the
@@ -250,6 +265,8 @@ We have finished defining the binding site of Trypsin, now we are filling out de
 
 
 #### <a name="section1.7"></a> 1.7 MD Parameters
+
+---
 
 
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_7.png?raw=true "Section 1.7")
@@ -303,6 +320,8 @@ This will create the necessary disulfide bonds for our system.
 
 #### MIN
 
+---
+
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_8.png?raw=true "Section 1.7a")
 
 We will want to run minimizations, so set 'min' to 'True'
@@ -317,6 +336,8 @@ We will want to run minimizations, so set 'min' to 'True'
         - Set 'min_ensemble' to 'nve'.
 
 #### TEMP_EQUIL
+
+---
 
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_9.png?raw=true "Section 1.7b")
 
@@ -337,7 +358,10 @@ We will want to run minimizations, so set 'min' to 'True'
 
         - Set 'temp_equil_ensemble' to 'nvt'. 
 
+
 #### ENS_EQUIL
+
+---
 
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_10.png?raw=true "Section 1.7c")
 
@@ -366,6 +390,8 @@ We will want to run minimizations, so set 'min' to 'True'
 
 #### FORWARD and REVERSAL
 
+---
+
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_11.png?raw=true "Section 1.7d")
 
         - Set 'fwd_rev_ensemble' to 'nve'. Forward and reverse phases should be run in the NVE ensemble.
@@ -391,6 +417,8 @@ We will want to run minimizations, so set 'min' to 'True'
 
 #### <a name="section1.8"></a> 1.8 BD Parameters
 
+---
+
 
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_12.png?raw=true "Section 1.8")
 
@@ -406,6 +434,8 @@ Now we will fill out details concerning the BD portion of the simulation
         - Set 'bd_rec_pqr_filename' to 'tryp_dry_lastframe.pqr'.
 
 #### <a name="section1.9"></a> 1.9 APBS Parameters
+
+---
 
 
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_13.png?raw=true "Section 1.9")
@@ -441,7 +471,10 @@ ___
 
 ___
 
+
 #### <a name="section2.1"></a>2.1 Running seekr.py
+
+---
 
 
 Now we are finished with the preparations of the input file. Run the SEEKR program using the following command:
@@ -453,6 +486,8 @@ The program may take take many minutes or even an hour to complete. Once finishe
 The tryp/ directory contains a filetree that SEEKR constructed. Inside, you will see several folders that begin with the word 'anchor' and a folder that is called 'b_surface'. Additionally, you will see a milestones.xml file, which the program uses to represent the milestone surfaces, and will be used for analysis in the end. There are also several '.pkl' files. The '.pkl' files are python "pickle" files that allow subsequent runs of seekr.py to be completed more quickly and easily, but you will never interact with them.
 
 #### <a name="section2.2"></a> 2.2 Anchor Notation
+
+---
 
 The directories that begin with "anchor" are designed to be informative. The format looks like: "anchor_A_B_C_D_E_F_G" The numbers correspond to:
 
