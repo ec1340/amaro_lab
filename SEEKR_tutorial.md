@@ -253,6 +253,8 @@ NOTE: the radius lis option will override the increment option
 
 #### <a name="section1.6"></a> 1.6 Ligand Positions/Orientations
 
+---
+
 
 ![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_6.png?raw=true "Section 1.6")
 
