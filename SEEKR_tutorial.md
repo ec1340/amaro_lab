@@ -160,7 +160,13 @@ If one has a PDB structure with the ligand bound, then finding the binding site 
 
 Open VMD and load PDB structure 3PTB. Color the protein white and view in a surface representation, then view "resname BEN" in licorice represenation. You should be able to clearly see the benzamidine ligand in the binding site.
 
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_16.png?raw=true "Section 1.5")
+
 Now load the structure 'tryp_wet_lastframe.pdb' from the tutorial folder. Hide the waterbox, showing only the protein in a surface representation. Show residues 172 173 174 177 191 193 194 196 202 206 197 in a special color to highlight the binding site of trypsin. These will have different residue numbering than in the crystal structure because of the MD simulation done on 'tryp_wet_lastframe.pdb' previously. If desire, you can overlay the apo structure to the holo crystal structure using the MultiSeq tool in the VMD Extensions menu. I chose them because these are residues that appear to be interacting with the ligand, therefore, we can use the center of mass of these residues as the origin of our binding site.
+
+
+![Setting up the configuration file](SEEKR-tutorial-files/seekr_tut_18.png?raw=true "Section 1.5")
+
 
 Within the site1 block, set 'anchor_function' to 'concentric_spheres_atom'. This option means that our milestones will be concentric spheres centered around an atom selection.
 
