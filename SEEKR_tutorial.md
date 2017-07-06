@@ -809,7 +809,9 @@ This stage can be run independantly of any of the MD stages, and it can fill tim
 
 #### <a name="section4.1"></a> 4.1 bd_top
 
-BD is run starting from both the b-surface, and also the outermost milestone(s). We need to start with the b-surface, because the starting distribution on the outermost milestone(s) will be determined from this. From the trypsin system root directory, 'cd' into the directory named 'b_surface'. Open 'input.xml' to make sure that the parameters are OK (For instance, make sure that the Debye length and dielectric values are good). From here, run the BrownDye program 'bd_top' on the input file.
+BD is run starting from both the b-surface, and also the outermost milestone(s). 
+
+**We need to start with the b-surface**, because the starting distribution on the outermost milestone(s) will be determined from this. From the trypsin system root directory, 'cd' into the directory named 'b_surface'. Open 'input.xml' to make sure that the parameters are OK (For instance, make sure that the Debye length and dielectric values are good). From here, run the BrownDye program 'bd_top' on the input file.
 
         bd_top input.xml
 
@@ -828,7 +830,7 @@ Once the simulations are done (probably a couple of hours later), you can view t
 
 #### <a name="section4.3"></a> 4.3 Outermost Milestone BD Simulation
 
-Now, we are going to run the BD simulations for the outermost milestone. 'cd' back one, then go into the outermost anchor (anchor 6). Go into the 'bd' directory this time. Unlike the b-surface simulation, where you run all your simulations from random places on the b-surface, this anchor will have all its BD simulations started from points where this milestone was crossed in the bd simulations. Therefore, there will be many many separate runs of BrownDye starting from different conformations.
+**Now, we are going to run the BD simulations for the outermost milestone** 'cd' back one, then go into the outermost anchor (anchor 6). Go into the 'bd' directory this time. Unlike the b-surface simulation, where you run all your simulations from random places on the b-surface, this anchor will have all its BD simulations started from points where this milestone was crossed in the bd simulations. Therefore, there will be many many separate runs of BrownDye starting from different conformations.
 
 
 To do this, we must extract frames from the b-surface trajectories. Make sure you specified the 'empty_pqrxml_path' parameter in your SEEKR input file. If no path has been specified, the default path is *./empty.pqrxml* There is a copy of 'empty.pqrxml' inside the SEEKR program directory.
