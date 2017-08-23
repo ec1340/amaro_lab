@@ -33,10 +33,6 @@
 
 #### [5. Analysis](#section5.0)
 - [5.1 Running Analyze.py](#section5.1)
-
-
-#### [6.Troubleshooting)(#section6.0)
-
 ___
 
 ## <a name="section1.0"></a>1. Setting up the configuration file (.seekr)
@@ -894,12 +890,3 @@ Use the -h option of analyze.py for help and to wiew all the possible commands.
 For further analysis, there is a collection of scripts in the SEEKR/tools/analysis/ directory.
 
 
-
-
- ## <a name="section6.0"></a> 6.Troubleshooting:
-
-
-#### Section 1:
-
-#### Section 2:
-- 
